@@ -1,1 +1,44 @@
+# Onboarding-Automaten
+Förenklar onboarding av nya medarbetare genom automatisering av användarkonton och behörigheter.
 
+## Om projektet
+Onboarding-Automaten är ett projekt där vi utvecklar en lösning för att automatisera onboarding av nya medarbetare.
+
+Genom att använda information från en JSON-fil kan systemet automatiskt skapa användarkonton, tilldela grupper och hantera behörigheter i Active Directory. Projektet innehåller även en del om förändringsledning med fokus på samarbetet mellan HR och IT vid införandet av den nya lösningen.
+
+## Syfte
+Syftet med projektet är att undersöka hur automatisering kan förenkla onboarding-processen och minska manuellt arbete.
+
+Projektet undersöker även hur HR kan involveras i övergången till ett nytt arbetssätt och hur förändringsledning kan bidra till att skapa förståelse för förändringen.
+
+## Teknik
+- PowerShell
+- JSON
+- Active Directory
+- GitHub
+- VM Labbmiljö
+
+## Team
+| Namn | Roll |
+|------|------|
+| Moamin Al-Khazraji | Product Owner |
+| Johanna Swann | Scrum Master |
+| Martin Hellström | Utvecklare |
+| Oskar Wågman | Utvecklare |
+| Mohamad Sallat | Utvecklare |
+| William Minnert | Utvecklare |
+
+## Arbetssätt
+Vi arbetar enligt Scrum och planerar arbetet i sprintar. Varje sprint har ett tydligt mål och följs upp genom daily standups, sprint reviews och sprint retrospectives.
+
+GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsledningen dokumenteras löpande med hjälp av ADKAR-modellen.
+
+## Dokumentation
+- ProductVision.md
+- SprintReviews.md
+- SprintRetrospectives.md
+- Förändringsledning.md
+- DailyStandup.md
+
+## Projektstatus
+🚧 Projektet är under utveckling.
