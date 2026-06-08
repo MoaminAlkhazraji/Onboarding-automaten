@@ -2,11 +2,20 @@
 
 ## Sprint 0
 
-### Mål
+### Sprintfokus
+Under Sprint 0 låg fokus på att skapa en stabil grund för projektet genom planering, dokumentation och förberedelser inför kommande sprintar.
 
 ### Vad vi gjorde
+- Fördelade roller i gruppen.
+- Skapade produktbackloggen.
+- Skrev user stories.
+- Tog fram acceptanskriterier och Definition of Done.
+- Skapade projektets dokumentation.
+- Uppdaterade README.
+- Diskuterade projektets upplägg och arbetssätt.
 
 ### Resultat
+Projektet har nu en tydlig struktur för dokumentation, planering och samarbete. Gruppen är redo att påbörja Sprint 1.
 
 ---
 
