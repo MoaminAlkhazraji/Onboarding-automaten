@@ -3,10 +3,16 @@
 ## Sprint 0
 
 ### Vad gick bra?
+- Roller fördelades snabbt i gruppen.
+- Gruppen kom överens om projektets upplägg och arbetssätt.
+- Produktbacklogg, user stories och dokumentation togs fram.
+- En tydlig struktur för projektet skapades.
 
 ### Vad gick mindre bra?
+- Det tog lite tid att lära sig hur vi arbetar i GitHub
 
 ### Vad kan vi förbättra?
+- Bli tryggare i GitHub och hur vi arbetar med ändringar i projektet.
 
 ---
 
