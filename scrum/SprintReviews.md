@@ -3,7 +3,7 @@
 ## Sprint 0
 
 ### Sprintfokus
-Under Sprint 0 låg fokus på att skapa en stabil grund för projektet genom planering, dokumentation och förberedelser inför kommande sprintar.
+Under Sprint 0 låg fokus på att skapa en stabil grund för projektet genom planering, dokumentation och förberedelser inför utvecklingen.
 
 ### Vad vi gjorde
 - Fördelade roller i gruppen.
