@@ -1,7 +1,5 @@
 # Sprint Retrospectives
 
----
-
 ## Sprint 0
 
 ### Vad gick bra?
