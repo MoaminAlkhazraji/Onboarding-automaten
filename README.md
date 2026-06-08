@@ -36,12 +36,12 @@ GitHub används för att hantera backloggen, dokumentera arbetet och följa proj
 ## Dokumentation
 | Dokument | Beskrivning |
 |-----------|-----------|
-| [Product Vision](ProductVision.md) | Projektets vision och mål |
-| [Daily Standup](DailyStandup.md) | Anteckningar från dagliga möten |
-| [Sprint Reviews](SprintReviews.md) | Sammanfattningar av genomförda sprintar |
-| [Sprint Retrospectives](SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
-| [Förändringsledning](Förändringsledning.md) | Dokumentation av förändringsarbetet |
-| [Definition of Done](DefinitionofDone.md) | Kriterier för när en uppgift är klar |
+| [Product Vision](docs/ProductVision.md) | Projektets vision och mål |
+| [Daily Standup](scrum/DailyStandup.md) | Anteckningar från dagliga möten |
+| [Sprint Reviews](scrum/SprintReviews.md) | Sammanfattningar av genomförda sprintar |
+| [Sprint Retrospectives](scrum/SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
+| [Förändringsledning](docs/Förändringsledning.md) | Dokumentation av förändringsarbetet |
+| [Definition of Done](docs/DefinitionofDone.md) | Kriterier för när en uppgift är klar |
 
 ## Projektstatus
 🚧 Projektet är under utveckling.
