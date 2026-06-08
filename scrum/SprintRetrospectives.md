@@ -9,7 +9,7 @@
 - En tydlig struktur för projektet skapades.
 
 ### Vad gick mindre bra?
-- Det tog lite tid att lära sig hur vi arbetar i GitHub
+- Det tog lite tid att komma in i arbetsättet i GitHub.
 
 ### Vad kan vi förbättra?
 - Bli tryggare i GitHub och hur vi arbetar med ändringar i projektet.
