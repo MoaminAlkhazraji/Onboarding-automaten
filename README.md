@@ -42,6 +42,7 @@ GitHub används för att hantera backloggen, dokumentera arbetet och följa proj
 | [Sprint Retrospectives](scrum/SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
 | [Förändringsledning](docs/Förändringsledning.md) | Dokumentation av förändringsarbetet |
 | [Definition of Done](docs/DefinitionofDone.md) | Kriterier för när en uppgift är klar |
+| [Git-instruktioner](docs/GitInstruktioner.md) | GitHub-guide för projektet |
 
 ## Projektstatus
 🚧 Projektet är under utveckling.
