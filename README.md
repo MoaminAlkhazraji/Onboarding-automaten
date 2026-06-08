@@ -34,11 +34,14 @@ Vi arbetar enligt Scrum och planerar arbetet i sprintar. Varje sprint har ett ty
 GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsledningen dokumenteras löpande med hjälp av ADKAR-modellen.
 
 ## Dokumentation
-- ProductVision.md
-- SprintReviews.md
-- SprintRetrospectives.md
-- Förändringsledning.md
-- DailyStandup.md
+| Dokument | Beskrivning |
+|-----------|-----------|
+| [Product Vision](ProductVision.md) | Projektets vision och mål |
+| [Daily Standup](DailyStandup.md) | Anteckningar från dagliga möten |
+| [Sprint Reviews](SprintReviews.md) | Sammanfattningar av genomförda sprintar |
+| [Sprint Retrospectives](SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
+| [Förändringsledning](Förändringsledning.md) | Dokumentation av förändringsarbetet |
+| [Definition of Done](DefinitionofDone.md) | Kriterier för när en uppgift är klar |
 
 ## Projektstatus
 🚧 Projektet är under utveckling.
