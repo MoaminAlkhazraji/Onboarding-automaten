@@ -44,7 +44,7 @@
 - Påbörja arbetet med tilldelade user stories för sprint 1.
 - Påbörja utveckling av onboarding-skriptet. 
 - Uppdatera dokumentation och GitHub Projects löpande.
-- Sätta upp labbmiljö. 
+- Sätta upp projektets labbmiljö. 
 - Följa upp arbetet vid nästa avstämning.
 
 ### Hinder
