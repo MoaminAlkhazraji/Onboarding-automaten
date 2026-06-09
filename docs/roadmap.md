@@ -18,20 +18,23 @@ Den här roadmapen visar vår plan för projektet och vad vi kommer att fokusera
 HR-data
     │
     ▼
-Formulär / JSON-fil
+Formulär
+    │
+    ▼
+JSON-fil
     │
     ▼
 Onboarding-skript
     │
-    ├── Skapa användare
-    ├── Tilldela grupper
-    ├── Skapa mappar
-    ├── Hantera behörigheter
-    ├── Logga händelser
-    └── Hantera fel
+    ├── Användarkonto
+    ├── AD-grupper
+    ├── Mappstruktur
+    ├── Behörigheter
+    ├── Loggning
+    └── Felhantering
     │
     ▼
-Färdig onboarding i labbmiljön
+Färdig onboarding
 ```
 
 ---
