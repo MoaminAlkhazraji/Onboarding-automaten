@@ -5,8 +5,8 @@ Den här roadmapen visar vår plan för projektet och vad vi kommer att fokusera
 
 ## 📅 Sprintplan
 | Sprint | Datum | Fokus | Förväntat resultat |
-|---------|--------|----------|----------------------|
-| **Sprint 1** | **9–10 juni** | Sprintplanering, sätta upp labbmiljö och börja utveckla onboarding-skriptet. | Gruppen har valt user stories, labbmiljön är uppsatt och utvecklingen har startat. |
+|----------|---------|--------|--------------------|
+| **Sprint 1** | **9–10 juni** | Sätta upp labbmiljö och påbörja utvecklingen av onboarding-skriptet. | Gruppen har valt user stories, labbmiljön är uppsatt och utvecklingen av onboarding-skriptet har påbörjats. |
 | **Sprint 2** | **11 juni** | Fortsätta utveckla onboarding-skriptet och arbeta vidare med tilldelade uppgifter. | Fler funktioner är implementerade och projektet har kommit vidare. |
 | **Sprint 3** | **12 juni** | Testa funktioner, rätta fel och fortsätta dokumentationen. | Funktionerna fungerar bättre och eventuella problem har åtgärdats. |
 | **Sprint 4** | **15–17 juni** | Slutföra projektet, göra sista testerna och förbereda presentationen. | Projektet är färdigt, dokumenterat och redo för redovisning. |
