@@ -19,14 +19,14 @@ Projektet undersöker även hur HR kan involveras i övergången till ett nytt a
 - VM Labbmiljö
 
 ## Team
-| Namn | Roll |
+| Roll | Namn |
 |------|------|
-| Moamin Al-Khazraji | Product Owner |
-| Johanna Swann | Scrum Master |
-| Martin Hellström | Utvecklare |
-| Oskar Wågman | Utvecklare |
-| Mohamad Sallat | Utvecklare |
-| William Minnert | Utvecklare |
+| **Product Owner** | [Moamin Al-Khazraji](https://github.com/MoaminAlkhazraji) |
+| **Scrum Master** | [Johanna Swann](https://github.com/johannaswann) |
+| **Utvecklare** | [Martin Hellström](https://github.com/dnal0) |
+| **Utvecklare** | [Oskar Wågman](https://github.com/ghostprotocol-rrts) |
+| **Utvecklare** | [Mohamad Sallat](https://github.com/Mohamad-Sallat) |
+| **Utvecklare** | [William Minnert](https://github.com/Minnert) |
 
 ## Arbetssätt
 Vi arbetar enligt Scrum och planerar arbetet i sprintar. Varje sprint har ett tydligt mål och följs upp genom daily standups, sprint reviews och sprint retrospectives.
