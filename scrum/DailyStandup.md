@@ -28,3 +28,15 @@
 - Inga hinder identifierade
 
 ---
+
+## 2026-06-09
+
+### Närvarande
+- Product Owner | Moamin Al-Khazraji
+- Scrum Master | Johanna Swann
+- Utvecklare | Martin Hellström
+- Utvecklare | Oskar Wågman
+- Utvecklare | Mohamad Sallat
+- Utvecklare | William Minnert
+
+### Sammanfattning
