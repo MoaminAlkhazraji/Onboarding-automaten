@@ -84,3 +84,31 @@ function New-UserFolderStructure {
     }
 
 }
+
+#   Hjälpfunktion för att köra enskilda steg med felhantering och logging.
+#   Gör det enkelt att lägga till nya steg utan att hela scriptet kraschar.
+ 
+function Invoke-OnboardingStep {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$StepName,
+
+        [Parameter(Mandatory=$true)]
+        [scriptblock]$ScriptBlock
+    )
+
+    try {
+        Write-Log "Startar: $StepName" "INFO"
+
+        & $ScriptBlock
+
+        Write-Log "Slutfört: $StepName" "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-Log "FEL i steg '$StepName': $($_.Exception.Message)" "ERROR"
+        Write-Host "Ett fel uppstod i steg: $StepName - Se loggfil för detaljer" -ForegroundColor Red
+        return $false
+    }
+}
