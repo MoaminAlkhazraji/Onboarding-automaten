@@ -52,7 +52,7 @@
 
   ---
 
-## 2026-06-09
+## 2026-06-10
 
 Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skolan.
 
