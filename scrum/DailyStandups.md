@@ -49,3 +49,12 @@
 
 ### Hinder
 - Inga hinder identifierade.
+
+  ---
+
+## 2026-06-09
+
+Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skolan.
+
+  ---
+
