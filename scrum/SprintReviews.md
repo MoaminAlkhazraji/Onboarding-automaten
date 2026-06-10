@@ -21,18 +21,18 @@ Projektet har nu en tydlig struktur för dokumentation, planering och samarbete.
 
 ## Sprint 1
 
-### Mål
-genomförde det som var planerat under sprint 1.
+### Sprintfokus
+Genomföra de planerade user stories för Sprint 1 och arbeta vidare med utvecklingen av onboarding-projektet.
 
 ### Vad vi gjorde
-- test miljö
-- dokumentation
-- roadmap, påbörjat adkar. 
-- script för API anrop
-- felhantering
-- påbörjat skapandet av logfil och mappstruktur.
+- Satt upp testmiljö.
+- Arbetat med dokumentation.
+- Tagit fram en roadmap.
+- Utvecklat script för API-anrop.
+- Påbörjat skapandet av felhantering, logfil och mappstruktur.
 
 ### Resultat
+Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektets dokumentation har påbörjats och en stabil grund har skapats för kommande sprintar.
 
 ---
 
