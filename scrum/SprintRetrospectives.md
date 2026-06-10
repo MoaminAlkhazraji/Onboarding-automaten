@@ -19,10 +19,12 @@
 ## Sprint 1
 
 ### Vad gick bra?
+Vi lyckades user stories vi la på sprint 1. Samarbetet och stämning bra. Alla delaktiga. 
 
-### Vad gick mindre bra?
-
-### Vad kan vi förbättra?
+### Vad gick mindre bra? ### Vad kan vi förbättra?
+Mer förståelse för hur github funkar. 
+Planering och förståelse för vad som behövs.  
+Backloggen ännu mer tydlig om vad som ska göras. 
 
 ---
 
