@@ -58,7 +58,7 @@ Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektet
 
 ## Sprint 4
 
-### Mål
+### Sprintfokus
 
 ### Vad vi gjorde
 
