@@ -22,8 +22,15 @@ Projektet har nu en tydlig struktur för dokumentation, planering och samarbete.
 ## Sprint 1
 
 ### Mål
+genomförde det som var planerat under sprint 1.
 
 ### Vad vi gjorde
+- test miljö
+- dokumentation
+- roadmap, påbörjat adkar. 
+- script för API anrop
+- felhantering
+- påbörjat skapandet av logfil och mappstruktur.
 
 ### Resultat
 
