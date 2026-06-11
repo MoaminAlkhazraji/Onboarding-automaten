@@ -1,9 +1,9 @@
 ﻿# Onboarding-Script.ps1
-# Stories #5 (Loggning) + #11 (Mappar)
+# Stories #5 (Loggning) + #6 (Felhantering) + #11 (Mappar)
 
 
 # HJÄLPFUNKTION
-# Write-Log: Hanterar logging till fil + konsoll
+# Write-Log: Hanterar logging till fil och till konsollen med färg
 function Write-Log {
     [CmdletBinding()]
     param (
@@ -19,8 +19,9 @@ function Write-Log {
     $LogEntry = "[$Timestamp] [$Level] $Message"
 
 
-    # Skriv till loggfil
+    # Skapa loggfilens sökväg
     $LogPath = "C:\Logs\Onboarding\Onboarding_$(Get-Date -Format 'yyyy-MM-dd').log"
+    
     try {
         if (-not (Test-Path (Split-Path $LogPath))) {
             New-Item -ItemType Directory -Path (Split-Path $LogPath) -Force | Out-Null
@@ -31,7 +32,7 @@ function Write-Log {
         Write-Warning "Kunde inte skriva till loggfil!"
     }
 
-    # Skriv till konsoll med färg
+    # Skriv till konsollen med färg beroende på loggnivå 
     switch ($Level) {
         "INFO"    { Write-Host $LogEntry -ForegroundColor Cyan }
         "SUCCESS" { Write-Host $LogEntry -ForegroundColor Green }
@@ -40,8 +41,8 @@ function Write-Log {
     }
 }
 
-#HJÄLPFUNKTION
-# New-UserFolderStructure: Skapar hemkatalog + undermappar
+# HJÄLPFUNKTION: New-UserFolderStructure #11
+# Skapar hemkatalog + undermappar för en ny användare
 function New-UserFolderStructure {
     [CmdletBinding()]
     param (
@@ -55,7 +56,7 @@ function New-UserFolderStructure {
     $UserHome = Join-Path $BasePath $Username
 
     try {
-        # Skapa hemkatalog
+        # Skapa hemkatalog om den inte finns
         if (-not (Test-Path $UserHome)) {
             New-Item -ItemType Directory -Path $UserHome -Force | Out-Null
             Write-Log "Skapade hemkatalog: $UserHome" "SUCCESS"
@@ -64,7 +65,7 @@ function New-UserFolderStructure {
             Write-Log "Hemkatalog finns redan: $UserHome" "WARNING"
         }
 
-        # Skapa vanliga undermappar
+        # Skapar undermappar
         $SubFolders = @("Dokument", "Skrivbord", "Nedladdningar", "Projekt", "Mallar")
 
         foreach ($folder in $SubFolders) {
@@ -85,9 +86,9 @@ function New-UserFolderStructure {
 
 }
 
-#   Hjälpfunktion för att köra enskilda steg med felhantering och logging.
-#   Gör det enkelt att lägga till nya steg utan att hela scriptet kraschar.
- 
+# HJÄLPFUNKTION: Invoke-Onboardingstep #6
+# Kör ett steg med felhantering och loggar resultatet 
+# Gör det enkelt att lägga till nya steg utan att hela scriptet kraschar
 function Invoke-OnboardingStep {
     [CmdletBinding()]
     param (
@@ -114,13 +115,12 @@ function Invoke-OnboardingStep {
 }
 
 
-# HUVUDLOOP - Onboarding av varje användare
+# HUVUDLOOP - Kör Onboarding för varje ny användare
 
 Write-Log "===Startar full Onboarding-process===" "INFO"
 
 
-## DETTA SKA ERSÄTTAS MED RIKTIGT JSON-HÄMTNING SENARE
-## ENBART TESTDATA
+# TESTDATA (Ska senare ersättas med riktig JSON-hämtning från Google Form)
 
 $TestUsers = @(
     [PSCustomObject]@{
@@ -133,16 +133,17 @@ $TestUsers = @(
     }
 )
 
+# Kör hela onboarding-processen för alla användare
 Invoke-OnboardingStep "Onboarding av alla användare" {
 
     foreach ($User in $TestUsers) {
 
         Invoke-OnboardingStep "Onboarding av $($User.Username)" {
 
-            #Skapa Mappar
+            #Skapa Mappar och undermappar för varje användaren
             $HomePath = New-UserFolderStructure -Username $User.Username -BasePath "C:\TestOnboarding"
 
-            Write-Log "Onboarding slutförd för $(User.FirstName) $(User.LastName)" "SUCCESS"
+            Write-Log "Onboarding slutförd för $($User.FirstName) $($User.LastName)" "SUCCESS"
         }
     }
 
