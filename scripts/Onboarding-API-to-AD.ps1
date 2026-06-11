@@ -37,7 +37,16 @@ $CheferGroup  = "GG_Chefer"
 $EkonomiGroup = "GG_Ekonomi_Users"
 $SaljGroup    = "GG_Salj_Users"
 
-$Password = ConvertTo-SecureString "Itsec2026!!" -AsPlainText -Force
+$DefaultPasswordPlain = [Environment]::GetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "Machine")
+
+if ([string]::IsNullOrWhiteSpace($DefaultPasswordPlain)) {
+    Write-Host "FEL: Miljövariabeln ONBOARDING_DEFAULT_PASSWORD saknas." -ForegroundColor Red
+    Write-Host "Skapa den med:" -ForegroundColor Yellow
+    Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "DITT_STANDARDLÖSENORD", "Machine")' -ForegroundColor Yellow
+    exit
+}
+
+$Password = ConvertTo-SecureString $DefaultPasswordPlain -AsPlainText -Force
 
 $ManagerFirstName = "Anna"
 $ManagerLastName  = "Andersson"
