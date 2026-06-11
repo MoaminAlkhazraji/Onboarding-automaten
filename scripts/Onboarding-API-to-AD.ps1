@@ -43,3 +43,17 @@ $ManagerFirstName = "Anna"
 $ManagerLastName  = "Andersson"
 $ManagerUsername  = "anna.andersson"
 $ManagerUPN       = "$ManagerUsername@$Domain"
+
+# ==============================
+# Skapa mappar om de saknas
+# ==============================
+
+if (-not (Test-Path $DataFolder)) {
+    New-Item -ItemType Directory -Path $DataFolder -Force | Out-Null
+}
+
+if (-not (Test-Path $LogFolder)) {
+    New-Item -ItemType Directory -Path $LogFolder -Force | Out-Null
+}
+
+"[$(Get-Date)] Startar onboarding-script" | Out-File $LogFile -Append -Encoding UTF8
