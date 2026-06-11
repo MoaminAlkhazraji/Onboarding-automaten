@@ -333,3 +333,18 @@ foreach ($Employee in $Employees) {
     }
 }
 
+# ==============================
+# Klart
+# ==============================
+
+"[$(Get-Date)] Onboarding-scriptet är klart. Nya användare: $NewUsersCreated. Befintliga hoppades över: $ExistingUsersSkipped. Fel: $UsersWithErrors." | Out-File $LogFile -Append -Encoding UTF8
+
+Write-Host "Onboarding-scriptet är klart" -ForegroundColor Green
+Write-Host "Nya användare skapade: $NewUsersCreated" -ForegroundColor Green
+Write-Host "Befintliga användare hoppades över: $ExistingUsersSkipped" -ForegroundColor Yellow
+if ($UsersWithErrors -eq 0) {
+    Write-Host "Fel: $UsersWithErrors" -ForegroundColor Green
+}
+else {
+    Write-Host "Fel: $UsersWithErrors" -ForegroundColor Red
+}
