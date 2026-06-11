@@ -174,3 +174,162 @@ catch {
     Write-Host "Kunde inte läsa employees.json" -ForegroundColor Red
     exit
 }
+
+# ==============================
+# Räknare för summering
+# ==============================
+
+$NewUsersCreated = 0
+$ExistingUsersSkipped = 0
+$UsersWithErrors = 0
+
+
+# ==============================
+# Skapa nya användare i AD
+# Befintliga användare hoppas över tyst
+# ==============================
+
+foreach ($Employee in $Employees) {
+
+    $FirstName  = $Employee.firstName
+    $LastName   = $Employee.lastName
+    $Username   = $Employee.username
+    $Department = $Employee.department
+    $Role       = $Employee.role
+    $Manager    = $Employee.manager
+    $RowId      = $Employee.rowId
+    $StartDate  = $Employee.startDate
+
+    # Om API:t inte skickar username, skapa username automatiskt
+    if ([string]::IsNullOrWhiteSpace($Username) -and
+        -not [string]::IsNullOrWhiteSpace($FirstName) -and
+        -not [string]::IsNullOrWhiteSpace($LastName)) {
+
+        $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
+    }
+
+
+    # ==============================
+    # Validering: obligatoriska fält
+    # ==============================
+
+    if ([string]::IsNullOrWhiteSpace($FirstName) -or
+        [string]::IsNullOrWhiteSpace($LastName) -or
+        [string]::IsNullOrWhiteSpace($Username) -or
+        [string]::IsNullOrWhiteSpace($Department) -or
+        [string]::IsNullOrWhiteSpace($Role) -or
+        [string]::IsNullOrWhiteSpace($Manager)) {
+
+        "[$(Get-Date)] FEL: Saknar obligatorisk data för RowID $RowId" | Out-File $LogFile -Append -Encoding UTF8
+        Write-Host "Hoppar över RowID $RowId - saknar obligatorisk data" -ForegroundColor Red
+        $UsersWithErrors++
+        continue
+    }
+
+
+    # ==============================
+    # Validering: chef från formuläret
+    # ==============================
+
+    if ($Manager -ne "Anna Andersson") {
+        "[$(Get-Date)] FEL: Okänd chef för RowID $RowId : $Manager" | Out-File $LogFile -Append -Encoding UTF8
+        Write-Host "Hoppar över $Username - okänd chef: $Manager" -ForegroundColor Red
+        $UsersWithErrors++
+        continue
+    }
+
+
+    # ==============================
+    # Välj OU och grupp baserat på avdelning
+    # ==============================
+
+    switch ($Department.ToLower()) {
+        "ekonomi" {
+            $TargetOU = $EkonomiOU
+            $TargetGroup = $EkonomiGroup
+        }
+        "sälj" {
+            $TargetOU = $SaljOU
+            $TargetGroup = $SaljGroup
+        }
+        default {
+            "[$(Get-Date)] FEL: Okänd avdelning för $Username : $Department" | Out-File $LogFile -Append -Encoding UTF8
+            Write-Host "Hoppar över $Username - okänd avdelning: $Department" -ForegroundColor Red
+            $UsersWithErrors++
+            continue
+        }
+    }
+
+
+    # ==============================
+    # Kontrollera om användaren redan finns
+    # ==============================
+
+    $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
+
+    if ($ExistingUser) {
+        $ExistingUsersSkipped++
+        "[$(Get-Date)] Befintlig användare hoppades över: $Username" | Out-File $LogFile -Append -Encoding UTF8
+        continue
+    }
+
+
+    # ==============================
+    # Skapa ny AD-användare
+    # ==============================
+
+    try {
+        New-ADUser `
+            -Name "$FirstName $LastName" `
+            -GivenName $FirstName `
+            -Surname $LastName `
+            -SamAccountName $Username `
+            -UserPrincipalName "$Username@$Domain" `
+            -DisplayName "$FirstName $LastName" `
+            -Department $Department `
+            -Title $Role `
+            -Manager $ManagerDN `
+            -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
+            -Path $TargetOU `
+            -AccountPassword $Password `
+            -Enabled $true `
+            -ChangePasswordAtLogon $true
+
+        "[$(Get-Date)] Skapade AD-användare: $Username i $TargetOU" | Out-File $LogFile -Append -Encoding UTF8
+        Write-Host "Ny användare skapad: $Username" -ForegroundColor Green
+
+        $NewUsersCreated++
+    }
+    catch {
+        "[$(Get-Date)] FEL vid skapande av $Username : $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
+        Write-Host "Fel vid skapande av: $Username" -ForegroundColor Red
+        $UsersWithErrors++
+        continue
+    }
+
+
+    # ==============================
+    # Lägg ny användare i rätt grupp
+    # ==============================
+
+    try {
+        $IsMember = Get-ADGroupMember -Identity $TargetGroup -Recursive |
+        Where-Object { $_.SamAccountName -eq $Username }
+
+        if ($IsMember) {
+            "[$(Get-Date)] $Username är redan medlem i $TargetGroup" | Out-File $LogFile -Append -Encoding UTF8
+        }
+        else {
+            Add-ADGroupMember -Identity $TargetGroup -Members $Username
+
+            "[$(Get-Date)] Lade till $Username i gruppen $TargetGroup" | Out-File $LogFile -Append -Encoding UTF8
+            Write-Host "Lade till $Username i gruppen $TargetGroup" -ForegroundColor Green
+        }
+    }
+    catch {
+        "[$(Get-Date)] FEL: Kunde inte lägga till $Username i gruppen $TargetGroup. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
+        Write-Host "Kunde inte lägga till $Username i gruppen $TargetGroup" -ForegroundColor Red
+        $UsersWithErrors++
+    }
+}
+
