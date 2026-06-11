@@ -32,7 +32,7 @@ Projektet undersöker även hur HR kan involveras i övergången till ett nytt a
 ## Arbetssätt
 Vi arbetar enligt Scrum och planerar arbetet i sprintar. Varje sprint har ett tydligt mål och följs upp genom daily standups, sprint reviews och sprint retrospectives.
 
-GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsledningen dokumenteras löpande med hjälp av ADKAR-modellen.
+GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsarbetet dokumenteras löpande med hjälp av ADKAR-modellen.
 
 ## Dokumentation
 | Dokument | Beskrivning |
