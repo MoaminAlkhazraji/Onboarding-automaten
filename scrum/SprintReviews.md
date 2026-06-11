@@ -49,7 +49,7 @@ Sprintfokus var att fortsätta utveckla skriptet och genomföra de user stories 
 - Uppdaterat dokumentation löpande. 
 
 ### Resultat
-Vi har genomförde det vi planerade för sprinten och projektet har fortsatt framåt. Flera delar av skriptet har utvecklats vidare och dokumentationen har uppdaterats vid behov.
+Vi genomförde det vi planerade för sprinten och projektet har fortsatt framåt. Flera delar av skriptet har utvecklats vidare och dokumentationen har uppdaterats vid behov.
 
 ---
 
