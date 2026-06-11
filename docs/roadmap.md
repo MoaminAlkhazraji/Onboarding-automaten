@@ -24,12 +24,15 @@ Formulär
 JSON-fil
     │
     ▼
+API-anrop
+    │
+    ▼
 Onboarding-skript
     │
-    ├── Användarkonto
-    ├── AD-grupper
-    ├── Mappstruktur
-    ├── Behörigheter
+    ├── Skapa användarkonto
+    ├── Tilldela AD-grupper
+    ├── Skapa mappstruktur
+    ├── Tilldela behörigheter
     ├── Loggning
     └── Felhantering
     │
