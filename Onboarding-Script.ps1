@@ -122,14 +122,13 @@ Write-Log "===Startar full Onboarding-process===" "INFO"
 ## DETTA SKA ERSÄTTAS MED RIKTIGT JSON-HÄMTNING SENARE
 ## ENBART TESTDATA
 
-$TestUsers  = @(
+$TestUsers = @(
     [PSCustomObject]@{
         RowID = "1"
         FirstName = "Luke"
         LastName = "Skywalker"
-        UserName = "Luke.Skywalker"
+        Username = "luke.skywalker"
         Department = "Ekonomi"
-        Title = "Redovisningsekonom"
-    }]
+    
+    }
 )
-
