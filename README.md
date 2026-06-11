@@ -15,6 +15,7 @@ Projektet undersöker även hur HR kan involveras i övergången till ett nytt a
 - PowerShell
 - JSON
 - Active Directory
+- API-anrop
 - GitHub
 - VM Labbmiljö
 
