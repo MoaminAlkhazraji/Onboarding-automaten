@@ -1,4 +1,4 @@
-# Onboarding-Script.ps1
+﻿# Onboarding-Script.ps1
 # Stories #5 (Loggning) + #11 (Mappar)
 
 
@@ -112,3 +112,24 @@ function Invoke-OnboardingStep {
         return $false
     }
 }
+
+
+# HUVUDLOOP - Onboarding av varje användare
+
+Write-Log "===Startar full Onboarding-process===" "INFO"
+
+
+## DETTA SKA ERSÄTTAS MED RIKTIGT JSON-HÄMTNING SENARE
+## ENBART TESTDATA
+
+$TestUsers  = @(
+    [PSCustomObject]@{
+        RowID = "1"
+        FirstName = "Luke"
+        LastName = "Skywalker"
+        UserName = "Luke.Skywalker"
+        Department = "Ekonomi"
+        Title = "Redovisningsekonom"
+    }]
+)
+
