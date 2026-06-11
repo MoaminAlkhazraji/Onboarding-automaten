@@ -141,3 +141,36 @@ catch {
     Write-Host "Kunde inte skapa eller hämta chefskontot" -ForegroundColor Red
     exit
 }
+
+# ==============================
+# Hämta data från API och spara som JSON
+# ==============================
+
+try {
+    $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get
+
+    $EmployeesFromUrl | ConvertTo-Json -Depth 10 | Out-File $DataFile -Encoding UTF8
+
+    "[$(Get-Date)] Hämtade onboarding-data från API och sparade till $DataFile. Antal poster: $($EmployeesFromUrl.Count)" | Out-File $LogFile -Append -Encoding UTF8
+}
+catch {
+    "[$(Get-Date)] FEL: Kunde inte hämta data från API. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
+    Write-Host "Kunde inte hämta data från API" -ForegroundColor Red
+    exit
+}
+
+
+# ==============================
+# Läs in användare från JSON-fil
+# ==============================
+
+try {
+    $Employees = Get-Content $DataFile -Raw | ConvertFrom-Json
+
+    "[$(Get-Date)] Läste in användardata från $DataFile" | Out-File $LogFile -Append -Encoding UTF8
+}
+catch {
+    "[$(Get-Date)] FEL: Kunde inte läsa employees.json. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
+    Write-Host "Kunde inte läsa employees.json" -ForegroundColor Red
+    exit
+}
