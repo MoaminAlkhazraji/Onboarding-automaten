@@ -58,3 +58,24 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 
   ---
 
+  ## 2026-06-11
+
+### Närvarande
+- Samtliga gruppmedlemmar.
+
+### Sammanfattning
+- Genomförde sprint 2 planering.
+- Gick igenom backloggen och tilldelade user stories för sprint 2.
+- Flyttade aktuella user stories till **In Progress**.
+- Gick igenom delar av skriptet som redan har utvecklats.
+- Diskuterade hur skriptets olika delar ska fungera tillsammans.
+- Började sätta oss in i hur ITIL kan användas i projektet. 
+
+### Nästa steg
+- Påbörja arbetet med de user stories som ligger i **In Progress**.
+- Fortsätta utveckla och testa funktionerna.
+- Fortsätta dokumentera arbetet.
+- Genomföra avstämning, Sprint Review och Sprint Retrospective.
+
+### Hinder
+- Inga hinder identifierade.
