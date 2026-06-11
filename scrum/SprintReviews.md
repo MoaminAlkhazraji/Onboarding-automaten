@@ -39,13 +39,13 @@ Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektet
 ## Sprint 2
 
 ### Sprintfokus
-Sprintfokus var att fortsätta utveckla skriptet och arbeta med de user stories som planerades för Sprint 2.
+Sprintfokus var att fortsätta utveckla skriptet och gebomföra de user stories som planerades för Sprint 2.
 
 ### Vad vi gjorde
 - Börjat bygga huvudloopen i skriptet.
 - Arbetat med att skapa användarkonton i Active Directory.
 - Arbetat med att placera användare i rätt AD-grupper.
-- Fortsatt arbetet med ADKAR.
+- Fortsatte arbetet med ADKAR.
 - Uppdaterat dokumentation löpande. 
 
 ### Resultat
