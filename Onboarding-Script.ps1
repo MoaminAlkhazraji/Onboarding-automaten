@@ -132,3 +132,20 @@ $TestUsers = @(
     
     }
 )
+
+Invoke-OnboardingStep "Onboarding av alla användare" {
+
+    foreach ($User in $TestUsers) {
+
+        Invoke-OnboardingStep "Onboarding av $($User.Username)" {
+
+            #Skapa Mappar
+            $HomePath = New-UserFolderStructure -Username $User.Username -BasePath "C:\TestOnboarding"
+
+            Write-Log "Onboarding slutförd för $(User.FirstName) $(User.LastName)" "SUCCESS"
+        }
+    }
+
+}
+
+Write-Log "===Full Onboarding-process slutförd===" "INFO"
