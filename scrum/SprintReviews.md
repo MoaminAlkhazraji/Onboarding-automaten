@@ -39,7 +39,7 @@ Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektet
 ## Sprint 2
 
 ### Sprintfokus
-Sprintfokus var att fortsätta utveckla skriptet och gebomföra de user stories som planerades för Sprint 2.
+Sprintfokus var att fortsätta utveckla skriptet och genomföra de user stories som planerades för Sprint 2.
 
 ### Vad vi gjorde
 - Börjat bygga huvudloopen i skriptet.
