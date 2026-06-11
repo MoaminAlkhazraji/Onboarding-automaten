@@ -36,10 +36,15 @@
 ## Sprint 2
 
 ### Vad gick bra?
+- Fortsatt bra samarbete och god stämning i gruppen.
+- Vi hann med det vi planerade och ligger bra till inför nästa sprint.
 
 ### Vad gick mindre bra?
+- Två user stories var för lika varandra, vilket ledde till liknande utvecklingsarbete.
 
 ### Vad kan vi förbättra?
+- Skriva tydligare user stories i backloggen för att undvika överlapp. 
+- Fortsätta utveckla vårt arbetssätt och dra lärdom av varje sprint.
 
 ---
 

@@ -28,7 +28,7 @@ Genomföra de planerade user stories för Sprint 1 och arbeta vidare med utveckl
 - Satt upp testmiljö.
 - Arbetat med dokumentation.
 - Tagit fram en roadmap.
-- Utvecklat script för API-anrop.
+- Utvecklat skript för API-anrop.
 - Påbörjat skapandet av felhantering, logfil och mappstruktur.
 
 ### Resultat
@@ -39,10 +39,17 @@ Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektet
 ## Sprint 2
 
 ### Sprintfokus
+Sprintfokus var att fortsätta utveckla skriptet och genomföra de user stories som planerades för Sprint 2.
 
 ### Vad vi gjorde
+- Börjat bygga huvudloopen i skriptet.
+- Arbetat med att skapa användarkonton i Active Directory.
+- Arbetat med att placera användare i rätt AD-grupper.
+- Fortsatte arbetet med ADKAR.
+- Uppdaterat dokumentation löpande. 
 
 ### Resultat
+Vi har genomfört det vi planerat för sprinten och projektet har fortsatt framåt. Flera delar av skriptet har utvecklats vidare och dokumentationen har uppdaterats vid behov.
 
 ---
 
