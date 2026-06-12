@@ -17,16 +17,9 @@ function Write-Log {
     
     $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $LogEntry = "[$Timestamp] [$Level] $Message"
-
-
-    # Skapa loggfilens sökväg
-    $LogPath = "C:\Logs\Onboarding\Onboarding_$(Get-Date -Format 'yyyy-MM-dd').log"
     
     try {
-        if (-not (Test-Path (Split-Path $LogPath))) {
-            New-Item -ItemType Directory -Path (Split-Path $LogPath) -Force | Out-Null
-        }
-        Add-Content -Path $LogPath -Value $LogEntry -Encoding UTF8
+        Add-Content -Path $LogFile -Value $LogEntry -Encoding UTF8
     }
     catch {
         Write-Warning "Kunde inte skriva till loggfil!"
@@ -66,14 +59,20 @@ function New-UserFolderStructure {
         }
 
         # Skapar undermappar
-        $SubFolders = @("Dokument", "Skrivbord", "Nedladdningar", "Projekt", "Mallar")
+        $SubFolders = @(
+            "Dokument",
+            "Skrivbord",
+            "Nedladdningar",
+            "Projekt",
+            "Mallar"
+            )
 
-        foreach ($folder in $SubFolders) {
-            $fullPath = Join-Path $UserHome $folder
+        foreach ($Folder in $SubFolders) {
+            $FullPath = Join-Path $UserHome $Folder
 
-            if (-not (Test-Path $fullPath)) {
-                New-Item -ItemType Directory -Path $fullPath -Force | Out-Null
-                Write-Log "Skapade undermapp: $fullPath" "SUCCESS"
+            if (-not (Test-Path $FullPath)) {
+                New-Item -ItemType Directory -Path $FullPath -Force | Out-Null
+                Write-Log "Skapade undermapp: $FullPath" "SUCCESS"
             }
         }
 
@@ -109,44 +108,6 @@ function Invoke-OnboardingStep {
     }
     catch {
         Write-Log "FEL i steg '$StepName': $($_.Exception.Message)" "ERROR"
-        Write-Host "Ett fel uppstod i steg: $StepName - Se loggfil för detaljer" -ForegroundColor Red
         return $false
     }
 }
-
-
-# HUVUDLOOP - Kör Onboarding för varje ny användare
-
-Write-Log "===Startar full Onboarding-process===" "INFO"
-
-
-# TESTDATA (Ska senare ersättas med riktig JSON-hämtning från Google Form)
-
-$TestUsers = @(
-    [PSCustomObject]@{
-        RowID = "1"
-        FirstName = "Luke"
-        LastName = "Skywalker"
-        Username = "luke.skywalker"
-        Department = "Ekonomi"
-    
-    }
-)
-
-# Kör hela onboarding-processen för alla användare
-Invoke-OnboardingStep "Onboarding av alla användare" {
-
-    foreach ($User in $TestUsers) {
-
-        Invoke-OnboardingStep "Onboarding av $($User.Username)" {
-
-            #Skapa Mappar och undermappar för varje användaren
-            $HomePath = New-UserFolderStructure -Username $User.Username -BasePath "C:\TestOnboarding"
-
-            Write-Log "Onboarding slutförd för $($User.FirstName) $($User.LastName)" "SUCCESS"
-        }
-    }
-
-}
-
-Write-Log "===Full Onboarding-process slutförd===" "INFO"
