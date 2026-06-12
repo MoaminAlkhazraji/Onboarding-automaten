@@ -89,7 +89,7 @@ New-Item -ItemType File -Path $LockFile -Force | Out-Null
 
 try {
     Write-Log "=== Startar Onboarding-Automaten ===" "INFO"      
-    
+
 
 # ==============================
         # Säkerställ att grupper finns
@@ -315,6 +315,24 @@ try {
                 Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
 
                 Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
+
+        # ==============================   
+      # Skapa hemkatalog + undermappar
+        # ==============================
+
+            $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase
+
+            Set-ADUser -Identity $Username -HomeDirectory $HomePath -HomeDrive "H:"
+
+            Write-Log "Satte hemkatalog för $Username till $HomePath" "SUCCESS"
+
+            $Script:FoldersCreatedOrChecked++
+        }
+
+        if (-not $StepResult) {
+            $UsersWithErrors++
+        }
+    }
 
         # ==============================
         # Summering
