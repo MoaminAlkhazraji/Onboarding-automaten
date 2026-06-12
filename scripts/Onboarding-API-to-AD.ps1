@@ -234,25 +234,22 @@ if (-not (Test-Path $LogFolder)) {
             }
 
     # ==============================
-    # Välj OU och grupp baserat på avdelning
-    # ==============================
+            # Välj OU och grupp baserat på avdelning
+            # ==============================
 
-    switch ($Department.ToLower()) {
-        "ekonomi" {
-            $TargetOU = $EkonomiOU
-            $TargetGroup = $EkonomiGroup
-        }
-        "sälj" {
-            $TargetOU = $SaljOU
-            $TargetGroup = $SaljGroup
-        }
-        default {
-            "[$(Get-Date)] FEL: Okänd avdelning för $Username : $Department" | Out-File $LogFile -Append -Encoding UTF8
-            Write-Host "Hoppar över $Username - okänd avdelning: $Department" -ForegroundColor Red
-            $UsersWithErrors++
-            continue
-        }
-    }
+            switch ($Department.ToLower()) {
+                "ekonomi" {
+                    $TargetOU = $EkonomiOU
+                    $TargetGroup = $EkonomiGroup
+                }
+                "sälj" {
+                    $TargetOU = $SaljOU
+                    $TargetGroup = $SaljGroup
+                }
+                default {
+                    throw "Okänd avdelning för $Username : $Department"
+                }
+            }
 
 
     # ==============================
