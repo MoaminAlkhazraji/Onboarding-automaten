@@ -1,319 +1,322 @@
-# ==============================
-# Onboarding-Automaten
-# Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager -> Hemkatalog
-# API-token och standardlösenord hämtas från miljövariabler
-# ==============================
+    # ==============================
+    # Onboarding-Automaten
+    # Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager -> Hemkatalog
+    # API-token och standardlösenord hämtas från miljövariabler
+    # ==============================
 
-Import-Module ActiveDirectory
+    Import-Module ActiveDirectory
 
-# ==============================
-# Inställningar
-# ==============================
+    # ==============================
+    # Inställningar
+    # ==============================
 
-$ApiToken = [Environment]::GetEnvironmentVariable("ONBOARDING_API_TOKEN", "Machine")
+    $ApiToken = [Environment]::GetEnvironmentVariable("ONBOARDING_API_TOKEN", "Machine")
 
-if ([string]::IsNullOrWhiteSpace($ApiToken)) {
-    Write-Host "FEL: Miljövariabeln ONBOARDING_API_TOKEN saknas." -ForegroundColor Red
-    Write-Host "Skapa den med:" -ForegroundColor Yellow
-    Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_API_TOKEN", "DIN_TOKEN_HÄR", "Machine")' -ForegroundColor Yellow
-    exit
-}
+    if ([string]::IsNullOrWhiteSpace($ApiToken)) {
+        Write-Host "FEL: Miljövariabeln ONBOARDING_API_TOKEN saknas." -ForegroundColor Red
+        Write-Host "Skapa den med:" -ForegroundColor Yellow
+        Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_API_TOKEN", "DIN_TOKEN_HÄR", "Machine")' -ForegroundColor Yellow
+        exit
+    }
 
-$DefaultPasswordPlain = [Environment]::GetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "Machine")
+    $DefaultPasswordPlain = [Environment]::GetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "Machine")
 
-if ([string]::IsNullOrWhiteSpace($DefaultPasswordPlain)) {
-    Write-Host "FEL: Miljövariabeln ONBOARDING_DEFAULT_PASSWORD saknas." -ForegroundColor Red
-    Write-Host "Skapa den med:" -ForegroundColor Yellow
-    Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "DITT_STANDARDLÖSENORD", "Machine")' -ForegroundColor Yellow
-    exit
-}
+    if ([string]::IsNullOrWhiteSpace($DefaultPasswordPlain)) {
+        Write-Host "FEL: Miljövariabeln ONBOARDING_DEFAULT_PASSWORD saknas." -ForegroundColor Red
+        Write-Host "Skapa den med:" -ForegroundColor Yellow
+        Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "DITT_STANDARDLÖSENORD", "Machine")' -ForegroundColor Yellow
+        exit
+    }
 
-$Password = ConvertTo-SecureString $DefaultPasswordPlain -AsPlainText -Force
+    $Password = ConvertTo-SecureString $DefaultPasswordPlain -AsPlainText -Force
 
-$Uri = "https://script.google.com/macros/s/AKfycbwFnx_-ZwAeEszfJ9Z72MDfkRddqQsNiVbt6VAlIPftcpvf9zFkYYy8UzYkFV-BPwU/exec?token=$ApiToken"
+    $Uri = "https://script.google.com/macros/s/AKfycbwFnx_-ZwAeEszfJ9Z72MDfkRddqQsNiVbt6VAlIPftcpvf9zFkYYy8UzYkFV-BPwU/exec?token=$ApiToken"
 
-$DataFolder = "C:\Onboarding\Data"
-$LogFolder  = "C:\Onboarding\Logs"
-$ScriptFolder = "C:\Onboarding\Scripts"
-$HomeFolderBase = "C:\Onboarding\HomeFolders"
+    $DataFolder = "C:\Onboarding\Data"
+    $LogFolder  = "C:\Onboarding\Logs"
+    $ScriptFolder = "C:\Onboarding\Scripts"
+    $HomeFolderBase = "C:\Onboarding\HomeFolders"
 
-$DataFile = "$DataFolder\employees.json"
-$LogFile  = "$LogFolder\onboarding.log"
-$LockFile = "C:\Onboarding\onboarding.lock"
+    $DataFile = "$DataFolder\employees.json"
+    $LogFile  = "$LogFolder\onboarding.log"
+    $LockFile = "C:\Onboarding\onboarding.lock"
 
-$Domain = "itsec2026.local"
+    $Domain = "itsec2026.local"
 
-# OU-sökvägar
-$CheferOU  = "OU=Chefer,OU=ITSEC2026,DC=itsec2026,DC=local"
-$EkonomiOU = "OU=Ekonomi,OU=ITSEC2026,DC=itsec2026,DC=local"
-$SaljOU    = "OU=Sälj,OU=ITSEC2026,DC=itsec2026,DC=local"
+    # OU-sökvägar
+    $CheferOU  = "OU=Chefer,OU=ITSEC2026,DC=itsec2026,DC=local"
+    $EkonomiOU = "OU=Ekonomi,OU=ITSEC2026,DC=itsec2026,DC=local"
+    $SaljOU    = "OU=Sälj,OU=ITSEC2026,DC=itsec2026,DC=local"
 
-# AD-grupper
-$CheferGroup  = "GG_Chefer"
-$EkonomiGroup = "GG_Ekonomi_Users"
-$SaljGroup    = "GG_Salj_Users"
+    # AD-grupper
+    $CheferGroup  = "GG_Chefer"
+    $EkonomiGroup = "GG_Ekonomi_Users"
+    $SaljGroup    = "GG_Salj_Users"
 
-# Standardchef
-$ManagerFirstName = "Anna"
-$ManagerLastName  = "Andersson"
-$ManagerUsername  = "anna.andersson"
-$ManagerUPN       = "$ManagerUsername@$Domain"
+    # Standardchef
+    $ManagerFirstName = "Anna"
+    $ManagerLastName  = "Andersson"
+    $ManagerUsername  = "anna.andersson"
+    $ManagerUPN       = "$ManagerUsername@$Domain"
 
 # ==============================
 # Skapa mappar om de saknas
 # ==============================
 
-if (-not (Test-Path $DataFolder)) {
-    New-Item -ItemType Directory -Path $DataFolder -Force | Out-Null
+$FoldersToCreate = @(
+    $DataFolder,
+    $LogFolder,
+    $ScriptFolder,
+    $HomeFolderBase
+)
+
+foreach ($Folder in $FoldersToCreate) {
+    if (-not (Test-Path $Folder)) {
+        New-Item -ItemType Directory -Path $Folder -Force | Out-Null
+    }
 }
 
-if (-not (Test-Path $LogFolder)) {
-    New-Item -ItemType Directory -Path $LogFolder -Force | Out-Null
-}
+        # ==============================
+        # Säkerställ att grupper finns
+        # ==============================
 
-"[$(Get-Date)] Startar onboarding-script" | Out-File $LogFile -Append -Encoding UTF8
+        Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
+
+            $GroupsToCheck = @(
+                @{ Name = $CheferGroup;  Path = $CheferOU },
+                @{ Name = $EkonomiGroup; Path = $EkonomiOU },
+                @{ Name = $SaljGroup;    Path = $SaljOU }
+            )
+
+            foreach ($Group in $GroupsToCheck) {
+                $ExistingGroup = Get-ADGroup -Filter "Name -eq '$($Group.Name)'" -ErrorAction SilentlyContinue
+
+                if (-not $ExistingGroup) {
+                    New-ADGroup `
+                        -Name $Group.Name `
+                        -GroupScope Global `
+                        -GroupCategory Security `
+                        -Path $Group.Path
+
+                    Write-Log "Skapade gruppen $($Group.Name)" "SUCCESS"
+                }
+                else {
+                    Write-Log "Gruppen finns redan: $($Group.Name)" "INFO"
+                }
+            }
+        }
+
 
     # ==============================
-    # Säkerställ att grupper finns
-    # ==============================
+        # Säkerställ att Anna Andersson finns som chef
+        # ==============================
 
-    Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
+        Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
 
-        $GroupsToCheck = @(
-            @{ Name = $CheferGroup;  Path = $CheferOU },
-            @{ Name = $EkonomiGroup; Path = $EkonomiOU },
-            @{ Name = $SaljGroup;    Path = $SaljOU }
-        )
+            $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction SilentlyContinue
 
-        foreach ($Group in $GroupsToCheck) {
-            $ExistingGroup = Get-ADGroup -Filter "Name -eq '$($Group.Name)'" -ErrorAction SilentlyContinue
+            if (-not $ExistingManager) {
+                New-ADUser `
+                    -Name "$ManagerFirstName $ManagerLastName" `
+                    -GivenName $ManagerFirstName `
+                    -Surname $ManagerLastName `
+                    -SamAccountName $ManagerUsername `
+                    -UserPrincipalName $ManagerUPN `
+                    -DisplayName "$ManagerFirstName $ManagerLastName" `
+                    -Department "Ledning" `
+                    -Title "Chef" `
+                    -Description "Skapad av Onboarding-Automaten | Standardchef" `
+                    -Path $CheferOU `
+                    -AccountPassword $Password `
+                    -Enabled $true `
+                    -ChangePasswordAtLogon $true
 
-            if (-not $ExistingGroup) {
-                New-ADGroup `
-                    -Name $Group.Name `
-                    -GroupScope Global `
-                    -GroupCategory Security `
-                    -Path $Group.Path
-
-                Write-Log "Skapade gruppen $($Group.Name)" "SUCCESS"
+                Write-Log "Skapade chefskonto: $ManagerUsername" "SUCCESS"
             }
             else {
-                Write-Log "Gruppen finns redan: $($Group.Name)" "INFO"
-            }
-        }
-    }
-
-
-# ==============================
-    # Säkerställ att Anna Andersson finns som chef
-    # ==============================
-
-    Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
-
-        $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction SilentlyContinue
-
-        if (-not $ExistingManager) {
-            New-ADUser `
-                -Name "$ManagerFirstName $ManagerLastName" `
-                -GivenName $ManagerFirstName `
-                -Surname $ManagerLastName `
-                -SamAccountName $ManagerUsername `
-                -UserPrincipalName $ManagerUPN `
-                -DisplayName "$ManagerFirstName $ManagerLastName" `
-                -Department "Ledning" `
-                -Title "Chef" `
-                -Description "Skapad av Onboarding-Automaten | Standardchef" `
-                -Path $CheferOU `
-                -AccountPassword $Password `
-                -Enabled $true `
-                -ChangePasswordAtLogon $true
-
-            Write-Log "Skapade chefskonto: $ManagerUsername" "SUCCESS"
-        }
-        else {
-            Write-Log "Chefskontot finns redan: $ManagerUsername" "INFO"
-        }
-
-        $Script:ManagerDN = (Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'").DistinguishedName
-
-        $ManagerIsMember = Get-ADGroupMember -Identity $CheferGroup -Recursive |
-            Where-Object { $_.SamAccountName -eq $ManagerUsername }
-
-        if (-not $ManagerIsMember) {
-            Add-ADGroupMember -Identity $CheferGroup -Members $ManagerUsername
-            Write-Log "Lade till $ManagerUsername i gruppen $CheferGroup" "SUCCESS"
-        }
-        else {
-            Write-Log "$ManagerUsername är redan medlem i $CheferGroup" "INFO"
-        }
-    }
-
-
-# ==============================
-    # Hämta data från API och spara som JSON
-    # ==============================
-
-    Invoke-OnboardingStep "Hämta onboarding-data från API" {
-
-        $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get -TimeoutSec 30
-
-        if ($null -eq $EmployeesFromUrl -or $EmployeesFromUrl.Count -eq 0) {
-            Write-Log "Ingen data hämtades från API:t." "WARNING"
-            $Script:Employees = @()
-            return
-        }
-
-        $EmployeesFromUrl | ConvertTo-Json -Depth 10 | Out-File $DataFile -Encoding UTF8
-
-        Write-Log "Hämtade onboarding-data från API och sparade till $DataFile. Antal poster: $($EmployeesFromUrl.Count)" "SUCCESS"
-
-        $Script:Employees = Get-Content $DataFile -Raw | ConvertFrom-Json
-    }
-
-    if ($null -eq $Employees -or $Employees.Count -eq 0) {
-        Write-Log "Inga användare att behandla. Avslutar." "WARNING"
-        exit
-    }
-
-    # ==============================
-    # Räknare för summering
-    # ==============================
-
-    $NewUsersCreated = 0
-    $ExistingUsersSkipped = 0
-    $UsersWithErrors = 0
-    $FoldersCreatedOrChecked = 0
-
-
- # ==============================
-    # Skapa nya användare i AD
-    # ==============================
-
-    foreach ($Employee in $Employees) {
-
-        $FirstName  = $Employee.firstName
-        $LastName   = $Employee.lastName
-        $Username   = $Employee.username
-        $Department = $Employee.department
-        $Role       = $Employee.role
-        $Manager    = $Employee.manager
-        $RowId      = $Employee.rowId
-        $StartDate  = $Employee.startDate
-
-        if ([string]::IsNullOrWhiteSpace($Username) -and
-            -not [string]::IsNullOrWhiteSpace($FirstName) -and
-            -not [string]::IsNullOrWhiteSpace($LastName)) {
-
-            $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
-        }
-
-        $StepResult = Invoke-OnboardingStep "Onboarding av $Username" {
-
-
-      # ==============================
-            # Validering: obligatoriska fält
-            # ==============================
-
-            if ([string]::IsNullOrWhiteSpace($FirstName) -or
-                [string]::IsNullOrWhiteSpace($LastName) -or
-                [string]::IsNullOrWhiteSpace($Username) -or
-                [string]::IsNullOrWhiteSpace($Department) -or
-                [string]::IsNullOrWhiteSpace($Role) -or
-                [string]::IsNullOrWhiteSpace($Manager)) {
-
-                throw "Saknar obligatorisk data för RowID $RowId"
+                Write-Log "Chefskontot finns redan: $ManagerUsername" "INFO"
             }
 
+            $Script:ManagerDN = (Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'").DistinguishedName
 
-            # ==============================
-            # Validering: chef från formuläret
-            # ==============================
+            $ManagerIsMember = Get-ADGroupMember -Identity $CheferGroup -Recursive |
+                Where-Object { $_.SamAccountName -eq $ManagerUsername }
 
-            if ($Manager -ne "Anna Andersson") {
-                throw "Okänd chef för RowID $RowId : $Manager"
+            if (-not $ManagerIsMember) {
+                Add-ADGroupMember -Identity $CheferGroup -Members $ManagerUsername
+                Write-Log "Lade till $ManagerUsername i gruppen $CheferGroup" "SUCCESS"
             }
-
-    # ==============================
-            # Välj OU och grupp baserat på avdelning
-            # ==============================
-
-            switch ($Department.ToLower()) {
-                "ekonomi" {
-                    $TargetOU = $EkonomiOU
-                    $TargetGroup = $EkonomiGroup
-                }
-                "sälj" {
-                    $TargetOU = $SaljOU
-                    $TargetGroup = $SaljGroup
-                }
-                default {
-                    throw "Okänd avdelning för $Username : $Department"
-                }
+            else {
+                Write-Log "$ManagerUsername är redan medlem i $CheferGroup" "INFO"
             }
+        }
 
 
-            # ==============================
-            # Kontrollera om användaren redan finns
-            # ==============================
+        # ==============================
+        # Hämta data från API och spara som JSON
+        # ==============================
 
-            $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
+        Invoke-OnboardingStep "Hämta onboarding-data från API" {
 
-            if ($ExistingUser) {
-                $Script:ExistingUsersSkipped++
-                Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
+            $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get -TimeoutSec 30
+
+            if ($null -eq $EmployeesFromUrl -or $EmployeesFromUrl.Count -eq 0) {
+                Write-Log "Ingen data hämtades från API:t." "WARNING"
+                $Script:Employees = @()
                 return
             }
 
+            $EmployeesFromUrl | ConvertTo-Json -Depth 10 | Out-File $DataFile -Encoding UTF8
 
-            # ==============================
-            # Skapa AD-användare
-            # ==============================
+            Write-Log "Hämtade onboarding-data från API och sparade till $DataFile. Antal poster: $($EmployeesFromUrl.Count)" "SUCCESS"
 
-            New-ADUser `
-                -Name "$FirstName $LastName" `
-                -GivenName $FirstName `
-                -Surname $LastName `
-                -SamAccountName $Username `
-                -UserPrincipalName "$Username@$Domain" `
-                -DisplayName "$FirstName $LastName" `
-                -Department $Department `
-                -Title $Role `
-                -Manager $ManagerDN `
-                -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
-                -Path $TargetOU `
-                -AccountPassword $Password `
-                -Enabled $true `
-                -ChangePasswordAtLogon $true
+            $Script:Employees = Get-Content $DataFile -Raw | ConvertFrom-Json
+        }
 
-            Write-Log "Skapade AD-användare: $Username i $TargetOU" "SUCCESS"
+        if ($null -eq $Employees -or $Employees.Count -eq 0) {
+            Write-Log "Inga användare att behandla. Avslutar." "WARNING"
+            exit
+        }
 
-            $Script:NewUsersCreated++
+        # ==============================
+        # Räknare för summering
+        # ==============================
 
+        $NewUsersCreated = 0
+        $ExistingUsersSkipped = 0
+        $UsersWithErrors = 0
+        $FoldersCreatedOrChecked = 0
 
-            # ==============================
-            # Lägg användaren i rätt grupp
-            # ==============================
-
-            Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
-
-            Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
 
     # ==============================
-    # Summering
-    # ==============================
+        # Skapa nya användare i AD
+        # ==============================
 
-    Write-Log "=== Onboarding-Automaten är klar ===" "INFO"
-    Write-Log "Nya användare skapade: $NewUsersCreated" "SUCCESS"
-    Write-Log "Befintliga användare hoppades över: $ExistingUsersSkipped" "WARNING"
-    Write-Log "Hemkataloger skapade/kontrollerade: $FoldersCreatedOrChecked" "INFO"
+        foreach ($Employee in $Employees) {
 
-    if ($UsersWithErrors -eq 0) {
-        Write-Log "Fel: $UsersWithErrors" "SUCCESS"
+            $FirstName  = $Employee.firstName
+            $LastName   = $Employee.lastName
+            $Username   = $Employee.username
+            $Department = $Employee.department
+            $Role       = $Employee.role
+            $Manager    = $Employee.manager
+            $RowId      = $Employee.rowId
+            $StartDate  = $Employee.startDate
+
+            if ([string]::IsNullOrWhiteSpace($Username) -and
+                -not [string]::IsNullOrWhiteSpace($FirstName) -and
+                -not [string]::IsNullOrWhiteSpace($LastName)) {
+
+                $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
+            }
+
+            $StepResult = Invoke-OnboardingStep "Onboarding av $Username" {
+
+
+        # ==============================
+                # Validering: obligatoriska fält
+                # ==============================
+
+                if ([string]::IsNullOrWhiteSpace($FirstName) -or
+                    [string]::IsNullOrWhiteSpace($LastName) -or
+                    [string]::IsNullOrWhiteSpace($Username) -or
+                    [string]::IsNullOrWhiteSpace($Department) -or
+                    [string]::IsNullOrWhiteSpace($Role) -or
+                    [string]::IsNullOrWhiteSpace($Manager)) {
+
+                    throw "Saknar obligatorisk data för RowID $RowId"
+                }
+
+
+                # ==============================
+                # Validering: chef från formuläret
+                # ==============================
+
+                if ($Manager -ne "Anna Andersson") {
+                    throw "Okänd chef för RowID $RowId : $Manager"
+                }
+
+        # ==============================
+                # Välj OU och grupp baserat på avdelning
+                # ==============================
+
+                switch ($Department.ToLower()) {
+                    "ekonomi" {
+                        $TargetOU = $EkonomiOU
+                        $TargetGroup = $EkonomiGroup
+                    }
+                    "sälj" {
+                        $TargetOU = $SaljOU
+                        $TargetGroup = $SaljGroup
+                    }
+                    default {
+                        throw "Okänd avdelning för $Username : $Department"
+                    }
+                }
+
+
+                # ==============================
+                # Kontrollera om användaren redan finns
+                # ==============================
+
+                $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
+
+                if ($ExistingUser) {
+                    $Script:ExistingUsersSkipped++
+                    Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
+                    return
+                }
+
+
+                # ==============================
+                # Skapa AD-användare
+                # ==============================
+
+                New-ADUser `
+                    -Name "$FirstName $LastName" `
+                    -GivenName $FirstName `
+                    -Surname $LastName `
+                    -SamAccountName $Username `
+                    -UserPrincipalName "$Username@$Domain" `
+                    -DisplayName "$FirstName $LastName" `
+                    -Department $Department `
+                    -Title $Role `
+                    -Manager $ManagerDN `
+                    -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
+                    -Path $TargetOU `
+                    -AccountPassword $Password `
+                    -Enabled $true `
+                    -ChangePasswordAtLogon $true
+
+                Write-Log "Skapade AD-användare: $Username i $TargetOU" "SUCCESS"
+
+                $Script:NewUsersCreated++
+
+
+                # ==============================
+                # Lägg användaren i rätt grupp
+                # ==============================
+
+                Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
+
+                Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
+
+        # ==============================
+        # Summering
+        # ==============================
+
+        Write-Log "=== Onboarding-Automaten är klar ===" "INFO"
+        Write-Log "Nya användare skapade: $NewUsersCreated" "SUCCESS"
+        Write-Log "Befintliga användare hoppades över: $ExistingUsersSkipped" "WARNING"
+        Write-Log "Hemkataloger skapade/kontrollerade: $FoldersCreatedOrChecked" "INFO"
+
+        if ($UsersWithErrors -eq 0) {
+            Write-Log "Fel: $UsersWithErrors" "SUCCESS"
+        }
+        else {
+            Write-Log "Fel: $UsersWithErrors" "ERROR"
+        }
     }
-    else {
-        Write-Log "Fel: $UsersWithErrors" "ERROR"
+    finally {
+        Remove-Item $LockFile -Force -ErrorAction SilentlyContinue
     }
-}
-finally {
-    Remove-Item $LockFile -Force -ErrorAction SilentlyContinue
-}
