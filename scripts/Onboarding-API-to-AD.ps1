@@ -298,18 +298,22 @@ if (-not (Test-Path $LogFolder)) {
 
             Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
 
-# ==============================
-# Klart
-# ==============================
+    # ==============================
+    # Summering
+    # ==============================
 
-"[$(Get-Date)] Onboarding-scriptet är klart. Nya användare: $NewUsersCreated. Befintliga hoppades över: $ExistingUsersSkipped. Fel: $UsersWithErrors." | Out-File $LogFile -Append -Encoding UTF8
+    Write-Log "=== Onboarding-Automaten är klar ===" "INFO"
+    Write-Log "Nya användare skapade: $NewUsersCreated" "SUCCESS"
+    Write-Log "Befintliga användare hoppades över: $ExistingUsersSkipped" "WARNING"
+    Write-Log "Hemkataloger skapade/kontrollerade: $FoldersCreatedOrChecked" "INFO"
 
-Write-Host "Onboarding-scriptet är klart" -ForegroundColor Green
-Write-Host "Nya användare skapade: $NewUsersCreated" -ForegroundColor Green
-Write-Host "Befintliga användare hoppades över: $ExistingUsersSkipped" -ForegroundColor Yellow
-if ($UsersWithErrors -eq 0) {
-    Write-Host "Fel: $UsersWithErrors" -ForegroundColor Green
+    if ($UsersWithErrors -eq 0) {
+        Write-Log "Fel: $UsersWithErrors" "SUCCESS"
+    }
+    else {
+        Write-Log "Fel: $UsersWithErrors" "ERROR"
+    }
 }
-else {
-    Write-Host "Fel: $UsersWithErrors" -ForegroundColor Red
+finally {
+    Remove-Item $LockFile -Force -ErrorAction SilentlyContinue
 }
