@@ -73,39 +73,35 @@ if (-not (Test-Path $LogFolder)) {
 
 "[$(Get-Date)] Startar onboarding-script" | Out-File $LogFile -Append -Encoding UTF8
 
-# ==============================
-# Säkerställ att grupper finns
-# ==============================
+    # ==============================
+    # Säkerställ att grupper finns
+    # ==============================
 
-$GroupsToCheck = @(
-    @{ Name = $CheferGroup;  Path = $CheferOU },
-    @{ Name = $EkonomiGroup; Path = $EkonomiOU },
-    @{ Name = $SaljGroup;    Path = $SaljOU }
-)
+    Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
 
-foreach ($Group in $GroupsToCheck) {
-    try {
-        $ExistingGroup = Get-ADGroup -Filter "Name -eq '$($Group.Name)'" -ErrorAction Stop
+        $GroupsToCheck = @(
+            @{ Name = $CheferGroup;  Path = $CheferOU },
+            @{ Name = $EkonomiGroup; Path = $EkonomiOU },
+            @{ Name = $SaljGroup;    Path = $SaljOU }
+        )
 
-        if (-not $ExistingGroup) {
-            New-ADGroup `
-                -Name $Group.Name `
-                -GroupScope Global `
-                -GroupCategory Security `
-                -Path $Group.Path
+        foreach ($Group in $GroupsToCheck) {
+            $ExistingGroup = Get-ADGroup -Filter "Name -eq '$($Group.Name)'" -ErrorAction SilentlyContinue
 
-            "[$(Get-Date)] Skapade gruppen $($Group.Name)" | Out-File $LogFile -Append -Encoding UTF8
-        }
-        else {
-            "[$(Get-Date)] Gruppen finns redan: $($Group.Name)" | Out-File $LogFile -Append -Encoding UTF8
+            if (-not $ExistingGroup) {
+                New-ADGroup `
+                    -Name $Group.Name `
+                    -GroupScope Global `
+                    -GroupCategory Security `
+                    -Path $Group.Path
+
+                Write-Log "Skapade gruppen $($Group.Name)" "SUCCESS"
+            }
+            else {
+                Write-Log "Gruppen finns redan: $($Group.Name)" "INFO"
+            }
         }
     }
-    catch {
-        "[$(Get-Date)] FEL: Kunde inte kontrollera/skapa gruppen $($Group.Name). $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Kunde inte kontrollera/skapa gruppen $($Group.Name)" -ForegroundColor Red
-        exit
-    }
-}
 
 
 # ==============================
