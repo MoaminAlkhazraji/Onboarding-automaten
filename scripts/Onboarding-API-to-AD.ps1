@@ -225,17 +225,13 @@ if (-not (Test-Path $LogFolder)) {
             }
 
 
-    # ==============================
-    # Validering: chef från formuläret
-    # ==============================
+            # ==============================
+            # Validering: chef från formuläret
+            # ==============================
 
-    if ($Manager -ne "Anna Andersson") {
-        "[$(Get-Date)] FEL: Okänd chef för RowID $RowId : $Manager" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Hoppar över $Username - okänd chef: $Manager" -ForegroundColor Red
-        $UsersWithErrors++
-        continue
-    }
-
+            if ($Manager -ne "Anna Andersson") {
+                throw "Okänd chef för RowID $RowId : $Manager"
+            }
 
     # ==============================
     # Välj OU och grupp baserat på avdelning
