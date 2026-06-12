@@ -185,29 +185,29 @@ if (-not (Test-Path $LogFolder)) {
     $FoldersCreatedOrChecked = 0
 
 
-# ==============================
-# Skapa nya användare i AD
-# Befintliga användare hoppas över tyst
-# ==============================
+ # ==============================
+    # Skapa nya användare i AD
+    # ==============================
 
-foreach ($Employee in $Employees) {
+    foreach ($Employee in $Employees) {
 
-    $FirstName  = $Employee.firstName
-    $LastName   = $Employee.lastName
-    $Username   = $Employee.username
-    $Department = $Employee.department
-    $Role       = $Employee.role
-    $Manager    = $Employee.manager
-    $RowId      = $Employee.rowId
-    $StartDate  = $Employee.startDate
+        $FirstName  = $Employee.firstName
+        $LastName   = $Employee.lastName
+        $Username   = $Employee.username
+        $Department = $Employee.department
+        $Role       = $Employee.role
+        $Manager    = $Employee.manager
+        $RowId      = $Employee.rowId
+        $StartDate  = $Employee.startDate
 
-    # Om API:t inte skickar username, skapa username automatiskt
-    if ([string]::IsNullOrWhiteSpace($Username) -and
-        -not [string]::IsNullOrWhiteSpace($FirstName) -and
-        -not [string]::IsNullOrWhiteSpace($LastName)) {
+        if ([string]::IsNullOrWhiteSpace($Username) -and
+            -not [string]::IsNullOrWhiteSpace($FirstName) -and
+            -not [string]::IsNullOrWhiteSpace($LastName)) {
 
-        $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
-    }
+            $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
+        }
+
+        $StepResult = Invoke-OnboardingStep "Onboarding av $Username" {
 
 
     # ==============================
