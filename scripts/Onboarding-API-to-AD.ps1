@@ -102,7 +102,7 @@ try {
 # Säkerställ att grupper finns
 # ==============================
 
-        Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
+        $null = Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
 
             $GroupsToCheck = @(
                 @{ Name = $CheferGroup;  Path = $CheferOU },
@@ -133,7 +133,7 @@ try {
     # Säkerställ att Anna Andersson finns som chef
     # ==============================
 
-        Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
+        $null = Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
 
             $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction SilentlyContinue
 
@@ -178,7 +178,7 @@ try {
         # Hämta data från API och spara som JSON
         # ==============================
 
-        Invoke-OnboardingStep "Hämta onboarding-data från API" {
+        $null = Invoke-OnboardingStep "Hämta onboarding-data från API" {
 
             $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get -TimeoutSec 30
 
