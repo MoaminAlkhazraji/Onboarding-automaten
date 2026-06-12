@@ -290,30 +290,13 @@ if (-not (Test-Path $LogFolder)) {
             $Script:NewUsersCreated++
 
 
-    # ==============================
-    # Lägg ny användare i rätt grupp
-    # ==============================
+            # ==============================
+            # Lägg användaren i rätt grupp
+            # ==============================
 
-    try {
-        $IsMember = Get-ADGroupMember -Identity $TargetGroup -Recursive |
-        Where-Object { $_.SamAccountName -eq $Username }
+            Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
 
-        if ($IsMember) {
-            "[$(Get-Date)] $Username är redan medlem i $TargetGroup" | Out-File $LogFile -Append -Encoding UTF8
-        }
-        else {
-            Add-ADGroupMember -Identity $TargetGroup -Members $Username
-
-            "[$(Get-Date)] Lade till $Username i gruppen $TargetGroup" | Out-File $LogFile -Append -Encoding UTF8
-            Write-Host "Lade till $Username i gruppen $TargetGroup" -ForegroundColor Green
-        }
-    }
-    catch {
-        "[$(Get-Date)] FEL: Kunde inte lägga till $Username i gruppen $TargetGroup. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Kunde inte lägga till $Username i gruppen $TargetGroup" -ForegroundColor Red
-        $UsersWithErrors++
-    }
-}
+            Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
 
 # ==============================
 # Klart
