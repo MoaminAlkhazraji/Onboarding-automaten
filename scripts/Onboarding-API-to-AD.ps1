@@ -76,7 +76,22 @@ foreach ($Folder in $FoldersToCreate) {
     }
 }
 
-        # ==============================
+# ==============================
+# Hindra dubbelkörning
+# ==============================
+
+if (Test-Path $LockFile) {
+    Write-Log "Scriptet körs redan eller avslutades felaktigt tidigare. Avslutar." "WARNING"
+    exit
+}
+
+New-Item -ItemType File -Path $LockFile -Force | Out-Null
+
+try {
+    Write-Log "=== Startar Onboarding-Automaten ===" "INFO"      
+    
+
+# ==============================
         # Säkerställ att grupper finns
         # ==============================
 
