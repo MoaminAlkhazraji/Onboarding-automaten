@@ -150,37 +150,30 @@ if (-not (Test-Path $LogFolder)) {
 
 
 # ==============================
-# Hämta data från API och spara som JSON
-# ==============================
+    # Hämta data från API och spara som JSON
+    # ==============================
 
-try {
-    $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get
+    Invoke-OnboardingStep "Hämta onboarding-data från API" {
 
-    $EmployeesFromUrl | ConvertTo-Json -Depth 10 | Out-File $DataFile -Encoding UTF8
+        $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get -TimeoutSec 30
 
-    "[$(Get-Date)] Hämtade onboarding-data från API och sparade till $DataFile. Antal poster: $($EmployeesFromUrl.Count)" | Out-File $LogFile -Append -Encoding UTF8
-}
-catch {
-    "[$(Get-Date)] FEL: Kunde inte hämta data från API. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-    Write-Host "Kunde inte hämta data från API" -ForegroundColor Red
-    exit
-}
+        if ($null -eq $EmployeesFromUrl -or $EmployeesFromUrl.Count -eq 0) {
+            Write-Log "Ingen data hämtades från API:t." "WARNING"
+            $Script:Employees = @()
+            return
+        }
 
+        $EmployeesFromUrl | ConvertTo-Json -Depth 10 | Out-File $DataFile -Encoding UTF8
 
-# ==============================
-# Läs in användare från JSON-fil
-# ==============================
+        Write-Log "Hämtade onboarding-data från API och sparade till $DataFile. Antal poster: $($EmployeesFromUrl.Count)" "SUCCESS"
 
-try {
-    $Employees = Get-Content $DataFile -Raw | ConvertFrom-Json
+        $Script:Employees = Get-Content $DataFile -Raw | ConvertFrom-Json
+    }
 
-    "[$(Get-Date)] Läste in användardata från $DataFile" | Out-File $LogFile -Append -Encoding UTF8
-}
-catch {
-    "[$(Get-Date)] FEL: Kunde inte läsa employees.json. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-    Write-Host "Kunde inte läsa employees.json" -ForegroundColor Red
-    exit
-}
+    if ($null -eq $Employees -or $Employees.Count -eq 0) {
+        Write-Log "Inga användare att behandla. Avslutar." "WARNING"
+        exit
+    }
 
 # ==============================
 # Räknare för summering
