@@ -1,4 +1,10 @@
     # ==============================
+    # Hämta in Onboarding-Script.ps1
+
+    # ==============================
+   . . \Onboarding-Script.ps1
+   
+   # ==============================
     # Onboarding-Automaten
     # Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager -> Hemkatalog
     # API-token och standardlösenord hämtas från miljövariabler
