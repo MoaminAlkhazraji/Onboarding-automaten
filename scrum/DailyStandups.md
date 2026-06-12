@@ -95,7 +95,7 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 ### Nästa steg
 - Påbörja arbetet med de user stories som ligger i **In Progress**.
 - Utvecklarna går igenom koden tillsammans och ser hur delarna fungerar ihop.
-- Hålla en ny avstämning kl. 11.00 för att se om fler uppgifter behöver läggas till i backloggen.
+- Hålla en ny avstämning kl. 11.00 för att se om fler user stories behöver läggas till i backloggen.
 - Genomföra Sprint Review och Sprint Retrospective senare idag.
 
 ### Hinder
