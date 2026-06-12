@@ -58,7 +58,7 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 
   ---
 
-  ## 2026-06-11
+## 2026-06-11
 
 ### Närvarande
 - Samtliga gruppmedlemmar.
@@ -79,3 +79,25 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 
 ### Hinder
 - Inga hinder identifierade.
+
+  ---
+  
+## 2026-06-12
+
+### Närvarande
+- En gruppmedlem var frånvarande.
+
+### Sammanfattning
+- Genomförde sprint 3 planering.
+- Gick igenom backloggen och fördelade user stories för sprint 3.
+- Flyttade aktuella user stories till **In Progress**.
+
+### Nästa steg
+- Påbörja arbetet med de user stories som ligger i **In Progress**.
+- Utvecklarna går igenom koden tillsammans och ser hur delarna fungerar ihop.
+- Hålla en ny avstämning kl. 11.00 för att se om fler uppgifter behöver läggas till i backloggen.
+- Genomföra Sprint Review och Sprint Retrospective senare idag.
+
+### Hinder
+- Inga hinder identifierande. 
+
