@@ -273,19 +273,14 @@ foreach ($Employee in $Employees) {
         # ==============================
         # Välj OU och grupp baserat på avdelning
         # ==============================
-$DepartmentKey = $Department.Trim().ToLower()
+$DepartmentKey = $Department.Trim().ToLowerInvariant()
 
-$DepartmentKey = $DepartmentKey `
-    -replace "å", "a" `
-    -replace "ä", "a" `
-    -replace "ö", "o"
-
-switch ($DepartmentKey) {
+switch -Wildcard ($DepartmentKey) {
     "ekonomi" {
         $TargetOU = $EkonomiOU
         $TargetGroup = $EkonomiGroup
     }
-    "salj" {
+    "s*lj" {
         $TargetOU = $SaljOU
         $TargetGroup = $SaljGroup
     }
