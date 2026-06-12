@@ -102,7 +102,7 @@ try {
 # Säkerställ att grupper finns
 # ==============================
 
-        Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
+        $null = Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
 
             $GroupsToCheck = @(
                 @{ Name = $CheferGroup;  Path = $CheferOU },
@@ -133,7 +133,7 @@ try {
     # Säkerställ att Anna Andersson finns som chef
     # ==============================
 
-        Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
+        $null = Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
 
             $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction SilentlyContinue
 
@@ -178,7 +178,7 @@ try {
         # Hämta data från API och spara som JSON
         # ==============================
 
-        Invoke-OnboardingStep "Hämta onboarding-data från API" {
+        $null = Invoke-OnboardingStep "Hämta onboarding-data från API" {
 
             $EmployeesFromUrl = Invoke-RestMethod -Uri $Uri -Method Get -TimeoutSec 30
 
@@ -273,19 +273,14 @@ foreach ($Employee in $Employees) {
         # ==============================
         # Välj OU och grupp baserat på avdelning
         # ==============================
-$DepartmentKey = $Department.Trim().ToLower()
+$DepartmentKey = $Department.Trim().ToLowerInvariant()
 
-$DepartmentKey = $DepartmentKey `
-    -replace "å", "a" `
-    -replace "ä", "a" `
-    -replace "ö", "o"
-
-switch ($DepartmentKey) {
+switch -Wildcard ($DepartmentKey) {
     "ekonomi" {
         $TargetOU = $EkonomiOU
         $TargetGroup = $EkonomiGroup
     }
-    "salj" {
+    "s*lj" {
         $TargetOU = $SaljOU
         $TargetGroup = $SaljGroup
     }
