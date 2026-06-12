@@ -175,13 +175,14 @@ if (-not (Test-Path $LogFolder)) {
         exit
     }
 
-# ==============================
-# Räknare för summering
-# ==============================
+    # ==============================
+    # Räknare för summering
+    # ==============================
 
-$NewUsersCreated = 0
-$ExistingUsersSkipped = 0
-$UsersWithErrors = 0
+    $NewUsersCreated = 0
+    $ExistingUsersSkipped = 0
+    $UsersWithErrors = 0
+    $FoldersCreatedOrChecked = 0
 
 
 # ==============================
