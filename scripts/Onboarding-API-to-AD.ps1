@@ -1,10 +1,9 @@
 
     # ==============================
-        # ==============================
-    # Hämta in Onboarding-Script.ps1
-
     # ==============================
-    . "C:\YH 2025 Filer\Onboarding-automaten\Onboarding-Script.ps1"
+    # Hämta in Onboarding-Script.ps1
+    # ==============================
+    . "$PSScriptRoot\Onboarding-Script.ps1"
    
    # ==============================
     # Onboarding-Automaten
