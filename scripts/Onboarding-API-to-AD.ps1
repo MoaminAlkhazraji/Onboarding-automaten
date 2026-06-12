@@ -105,53 +105,49 @@ if (-not (Test-Path $LogFolder)) {
 
 
 # ==============================
-# Säkerställ att Anna Andersson finns som chef
-# ==============================
+    # Säkerställ att Anna Andersson finns som chef
+    # ==============================
 
-try {
-    $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction Stop
+    Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
 
-    if (-not $ExistingManager) {
-        New-ADUser `
-            -Name "$ManagerFirstName $ManagerLastName" `
-            -GivenName $ManagerFirstName `
-            -Surname $ManagerLastName `
-            -SamAccountName $ManagerUsername `
-            -UserPrincipalName $ManagerUPN `
-            -DisplayName "$ManagerFirstName $ManagerLastName" `
-            -Department "Ledning" `
-            -Title "Chef" `
-            -Description "Skapad av Onboarding-Automaten | Standardchef" `
-            -Path $CheferOU `
-            -AccountPassword $Password `
-            -Enabled $true `
-            -ChangePasswordAtLogon $true
+        $ExistingManager = Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'" -ErrorAction SilentlyContinue
 
-        "[$(Get-Date)] Skapade chefskonto: $ManagerUsername" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Skapade chefskonto: $ManagerUsername" -ForegroundColor Green
+        if (-not $ExistingManager) {
+            New-ADUser `
+                -Name "$ManagerFirstName $ManagerLastName" `
+                -GivenName $ManagerFirstName `
+                -Surname $ManagerLastName `
+                -SamAccountName $ManagerUsername `
+                -UserPrincipalName $ManagerUPN `
+                -DisplayName "$ManagerFirstName $ManagerLastName" `
+                -Department "Ledning" `
+                -Title "Chef" `
+                -Description "Skapad av Onboarding-Automaten | Standardchef" `
+                -Path $CheferOU `
+                -AccountPassword $Password `
+                -Enabled $true `
+                -ChangePasswordAtLogon $true
+
+            Write-Log "Skapade chefskonto: $ManagerUsername" "SUCCESS"
+        }
+        else {
+            Write-Log "Chefskontot finns redan: $ManagerUsername" "INFO"
+        }
+
+        $Script:ManagerDN = (Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'").DistinguishedName
+
+        $ManagerIsMember = Get-ADGroupMember -Identity $CheferGroup -Recursive |
+            Where-Object { $_.SamAccountName -eq $ManagerUsername }
+
+        if (-not $ManagerIsMember) {
+            Add-ADGroupMember -Identity $CheferGroup -Members $ManagerUsername
+            Write-Log "Lade till $ManagerUsername i gruppen $CheferGroup" "SUCCESS"
+        }
+        else {
+            Write-Log "$ManagerUsername är redan medlem i $CheferGroup" "INFO"
+        }
     }
-    else {
-        "[$(Get-Date)] Chefskontot finns redan: $ManagerUsername" | Out-File $LogFile -Append -Encoding UTF8
-    }
 
-    $ManagerDN = (Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'").DistinguishedName
-
-    $ManagerIsMember = Get-ADGroupMember -Identity $CheferGroup -Recursive |
-    Where-Object { $_.SamAccountName -eq $ManagerUsername }
-
-    if (-not $ManagerIsMember) {
-        Add-ADGroupMember -Identity $CheferGroup -Members $ManagerUsername
-        "[$(Get-Date)] Lade till $ManagerUsername i gruppen $CheferGroup" | Out-File $LogFile -Append -Encoding UTF8
-    }
-    else {
-        "[$(Get-Date)] $ManagerUsername är redan medlem i $CheferGroup" | Out-File $LogFile -Append -Encoding UTF8
-    }
-}
-catch {
-    "[$(Get-Date)] FEL: Kunde inte skapa eller hämta chefskontot $ManagerUsername. $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-    Write-Host "Kunde inte skapa eller hämta chefskontot" -ForegroundColor Red
-    exit
-}
 
 # ==============================
 # Hämta data från API och spara som JSON
