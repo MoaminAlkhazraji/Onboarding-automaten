@@ -252,17 +252,17 @@ if (-not (Test-Path $LogFolder)) {
             }
 
 
-    # ==============================
-    # Kontrollera om användaren redan finns
-    # ==============================
+            # ==============================
+            # Kontrollera om användaren redan finns
+            # ==============================
 
-    $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
+            $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
 
-    if ($ExistingUser) {
-        $ExistingUsersSkipped++
-        "[$(Get-Date)] Befintlig användare hoppades över: $Username" | Out-File $LogFile -Append -Encoding UTF8
-        continue
-    }
+            if ($ExistingUser) {
+                $Script:ExistingUsersSkipped++
+                Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
+                return
+            }
 
 
     # ==============================
