@@ -273,20 +273,26 @@ foreach ($Employee in $Employees) {
         # ==============================
         # Välj OU och grupp baserat på avdelning
         # ==============================
+$DepartmentKey = $Department.Trim().ToLower()
 
-        switch ($Department.ToLower()) {
-            "ekonomi" {
-                $TargetOU = $EkonomiOU
-                $TargetGroup = $EkonomiGroup
-            }
-            "sälj" {
-                $TargetOU = $SaljOU
-                $TargetGroup = $SaljGroup
-            }
-            default {
-                throw "Okänd avdelning för $Username : $Department"
-            }
-        }
+$DepartmentKey = $DepartmentKey `
+    -replace "å", "a" `
+    -replace "ä", "a" `
+    -replace "ö", "o"
+
+switch ($DepartmentKey) {
+    "ekonomi" {
+        $TargetOU = $EkonomiOU
+        $TargetGroup = $EkonomiGroup
+    }
+    "salj" {
+        $TargetOU = $SaljOU
+        $TargetGroup = $SaljGroup
+    }
+    default {
+        throw "Okänd avdelning för $Username : $Department"
+    }
+}
 
         # ==============================
         # Kontrollera om användaren redan finns
