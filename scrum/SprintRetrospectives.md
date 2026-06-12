@@ -51,10 +51,17 @@
 ## Sprint 3
 
 ### Vad gick bra?
+- Vi fick skriptets olika delar att fungera tillsammans.
+- Fortsatt bra samarbete i gruppen.
+- Koden blev mer enhetlig och lättare att förstå.
 
 ### Vad gick mindre bra?
+- Vissa delar av koden behövde göras om för att fungera tillsammans.
+- Det tog längre tid än planerat att samordna de olika delarna.
 
 ### Vad kan vi förbättra?
+- Lägga till en **In Review** kolumn i backloggen innan en user story markeras som **Done**.
+- Fortsätta bli säkrare på att använda GitHub.
 
 ---
 
