@@ -110,4 +110,5 @@ function Invoke-OnboardingStep {
         Write-Log "FEL i steg '$StepName': $($_.Exception.Message)" "ERROR"
         return $false
     }
+
 }
