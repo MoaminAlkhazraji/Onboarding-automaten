@@ -1,8 +1,10 @@
+
     # ==============================
+        # ==============================
     # Hämta in Onboarding-Script.ps1
 
     # ==============================
-   . . \Onboarding-Script.ps1
+    . "C:\Onboarding\Scripts\Onboarding-Script.ps1"
    
    # ==============================
     # Onboarding-Automaten
@@ -98,8 +100,8 @@ try {
 
 
 # ==============================
-        # Säkerställ att grupper finns
-        # ==============================
+# Säkerställ att grupper finns
+# ==============================
 
         Invoke-OnboardingStep "Kontrollera och skapa AD-grupper" {
 
@@ -129,8 +131,8 @@ try {
 
 
     # ==============================
-        # Säkerställ att Anna Andersson finns som chef
-        # ==============================
+    # Säkerställ att Anna Andersson finns som chef
+    # ==============================
 
         Invoke-OnboardingStep "Kontrollera och skapa standardchef" {
 
@@ -212,133 +214,145 @@ try {
     # ==============================
         # Skapa nya användare i AD
         # ==============================
+foreach ($Employee in $Employees) {
 
-        foreach ($Employee in $Employees) {
+    $FirstName  = $Employee.firstName
+    $LastName   = $Employee.lastName
+    $Username   = $Employee.username
+    $Department = $Employee.department
+    $Role       = $Employee.role
+    $Manager    = $Employee.manager
+    $RowId      = $Employee.rowId
+    $StartDate  = $Employee.startDate
 
-            $FirstName  = $Employee.firstName
-            $LastName   = $Employee.lastName
-            $Username   = $Employee.username
-            $Department = $Employee.department
-            $Role       = $Employee.role
-            $Manager    = $Employee.manager
-            $RowId      = $Employee.rowId
-            $StartDate  = $Employee.startDate
+    if ([string]::IsNullOrWhiteSpace($Username) -and
+        -not [string]::IsNullOrWhiteSpace($FirstName) -and
+        -not [string]::IsNullOrWhiteSpace($LastName)) {
 
-            if ([string]::IsNullOrWhiteSpace($Username) -and
-                -not [string]::IsNullOrWhiteSpace($FirstName) -and
-                -not [string]::IsNullOrWhiteSpace($LastName)) {
+        $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
+    }
 
-                $Username = "$($FirstName.ToLower()).$($LastName.ToLower())"
-            }
+    if (-not [string]::IsNullOrWhiteSpace($Username)) {
+        $Username = $Username.Trim().ToLower()
 
-            $StepResult = Invoke-OnboardingStep "Onboarding av $Username" {
+        $Username = $Username `
+            -replace "å", "a" `
+            -replace "ä", "a" `
+            -replace "ö", "o" `
+            -replace "[^a-z0-9\.-]", ""
 
-
-        # ==============================
-                # Validering: obligatoriska fält
-                # ==============================
-
-                if ([string]::IsNullOrWhiteSpace($FirstName) -or
-                    [string]::IsNullOrWhiteSpace($LastName) -or
-                    [string]::IsNullOrWhiteSpace($Username) -or
-                    [string]::IsNullOrWhiteSpace($Department) -or
-                    [string]::IsNullOrWhiteSpace($Role) -or
-                    [string]::IsNullOrWhiteSpace($Manager)) {
-
-                    throw "Saknar obligatorisk data för RowID $RowId"
-                }
-
-
-                # ==============================
-                # Validering: chef från formuläret
-                # ==============================
-
-                if ($Manager -ne "Anna Andersson") {
-                    throw "Okänd chef för RowID $RowId : $Manager"
-                }
-
-        # ==============================
-                # Välj OU och grupp baserat på avdelning
-                # ==============================
-
-                switch ($Department.ToLower()) {
-                    "ekonomi" {
-                        $TargetOU = $EkonomiOU
-                        $TargetGroup = $EkonomiGroup
-                    }
-                    "sälj" {
-                        $TargetOU = $SaljOU
-                        $TargetGroup = $SaljGroup
-                    }
-                    default {
-                        throw "Okänd avdelning för $Username : $Department"
-                    }
-                }
-
-
-                # ==============================
-                # Kontrollera om användaren redan finns
-                # ==============================
-
-                $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
-
-                if ($ExistingUser) {
-                    $Script:ExistingUsersSkipped++
-                    Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
-                    return
-                }
-
-
-                # ==============================
-                # Skapa AD-användare
-                # ==============================
-
-                New-ADUser `
-                    -Name "$FirstName $LastName" `
-                    -GivenName $FirstName `
-                    -Surname $LastName `
-                    -SamAccountName $Username `
-                    -UserPrincipalName "$Username@$Domain" `
-                    -DisplayName "$FirstName $LastName" `
-                    -Department $Department `
-                    -Title $Role `
-                    -Manager $ManagerDN `
-                    -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
-                    -Path $TargetOU `
-                    -AccountPassword $Password `
-                    -Enabled $true `
-                    -ChangePasswordAtLogon $true
-
-                Write-Log "Skapade AD-användare: $Username i $TargetOU" "SUCCESS"
-
-                $Script:NewUsersCreated++
-
-
-                # ==============================
-                # Lägg användaren i rätt grupp
-                # ==============================
-
-                Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
-
-                Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
-
-        # ==============================   
-      # Skapa hemkatalog + undermappar
-        # ==============================
-
-            $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase
-
-            Set-ADUser -Identity $Username -HomeDirectory $HomePath -HomeDrive "H:"
-
-            Write-Log "Satte hemkatalog för $Username till $HomePath" "SUCCESS"
-
-            $Script:FoldersCreatedOrChecked++
-        }
-
-        if (-not $StepResult) {
-            $UsersWithErrors++
+        if ($Username.Length -gt 20) {
+            $Username = $Username.Substring(0, 20)
         }
     }
+
+    try {
+        Write-Log "Startar onboarding av $Username" "INFO"
+
+        # ==============================
+        # Validering: obligatoriska fält
+        # ==============================
+
+        if ([string]::IsNullOrWhiteSpace($FirstName) -or
+            [string]::IsNullOrWhiteSpace($LastName) -or
+            [string]::IsNullOrWhiteSpace($Username) -or
+            [string]::IsNullOrWhiteSpace($Department) -or
+            [string]::IsNullOrWhiteSpace($Role) -or
+            [string]::IsNullOrWhiteSpace($Manager)) {
+
+            throw "Saknar obligatorisk data för RowID $RowId"
+        }
+
+        # ==============================
+        # Validering: chef från formuläret
+        # ==============================
+
+        if ($Manager -ne "Anna Andersson") {
+            throw "Okänd chef för RowID $RowId : $Manager"
+        }
+
+        # ==============================
+        # Välj OU och grupp baserat på avdelning
+        # ==============================
+
+        switch ($Department.ToLower()) {
+            "ekonomi" {
+                $TargetOU = $EkonomiOU
+                $TargetGroup = $EkonomiGroup
+            }
+            "sälj" {
+                $TargetOU = $SaljOU
+                $TargetGroup = $SaljGroup
+            }
+            default {
+                throw "Okänd avdelning för $Username : $Department"
+            }
+        }
+
+        # ==============================
+        # Kontrollera om användaren redan finns
+        # ==============================
+
+        $ExistingUser = Get-ADUser -Filter "SamAccountName -eq '$Username'" -ErrorAction SilentlyContinue
+
+        if ($ExistingUser) {
+            $ExistingUsersSkipped++
+            Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
+            continue
+        }
+
+        # ==============================
+        # Skapa AD-användare
+        # ==============================
+
+        New-ADUser `
+            -Name "$FirstName $LastName" `
+            -GivenName $FirstName `
+            -Surname $LastName `
+            -SamAccountName $Username `
+            -UserPrincipalName "$Username@$Domain" `
+            -DisplayName "$FirstName $LastName" `
+            -Department $Department `
+            -Title $Role `
+            -Manager $ManagerDN `
+            -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
+            -Path $TargetOU `
+            -AccountPassword $Password `
+            -Enabled $true `
+            -ChangePasswordAtLogon $true `
+            -ErrorAction Stop
+
+        Write-Log "Skapade AD-användare: $Username i $TargetOU" "SUCCESS"
+        $NewUsersCreated++
+
+        # ==============================
+        # Lägg användaren i rätt grupp
+        # ==============================
+
+        Add-ADGroupMember -Identity $TargetGroup -Members $Username -ErrorAction Stop
+        Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
+
+        # ==============================
+        # Skapa hemkatalog + undermappar
+        # ==============================
+
+        $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase
+
+        Set-ADUser -Identity $Username -HomeDirectory $HomePath -HomeDrive "H:" -ErrorAction Stop
+
+        Write-Log "Satte hemkatalog för $Username till $HomePath" "SUCCESS"
+
+        $FoldersCreatedOrChecked++
+
+        Write-Log "Onboarding slutförd för $Username" "SUCCESS"
+    }
+    catch {
+        Write-Log "Fel vid onboarding av $Username : $($_.Exception.Message)" "ERROR"
+        $UsersWithErrors++
+        continue
+    }
+}
+        
 
         # ==============================
         # Summering
