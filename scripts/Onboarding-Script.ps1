@@ -1,7 +1,7 @@
 # ==============================
 # Onboarding-Automaten
-# Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager -> Hemkatalog
-# API-token och standardlösenord hämtas från miljövariabler
+# Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager
+# API-token hämtas från miljövariabel
 # ==============================
 
 Import-Module ActiveDirectory
@@ -19,27 +19,13 @@ if ([string]::IsNullOrWhiteSpace($ApiToken)) {
     exit
 }
 
-$DefaultPasswordPlain = [Environment]::GetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "Machine")
-
-if ([string]::IsNullOrWhiteSpace($DefaultPasswordPlain)) {
-    Write-Host "FEL: Miljövariabeln ONBOARDING_DEFAULT_PASSWORD saknas." -ForegroundColor Red
-    Write-Host "Skapa den med:" -ForegroundColor Yellow
-    Write-Host '[Environment]::SetEnvironmentVariable("ONBOARDING_DEFAULT_PASSWORD", "DITT_STANDARDLÖSENORD", "Machine")' -ForegroundColor Yellow
-    exit
-}
-
-$Password = ConvertTo-SecureString $DefaultPasswordPlain -AsPlainText -Force
-
 $Uri = "https://script.google.com/macros/s/AKfycbwFnx_-ZwAeEszfJ9Z72MDfkRddqQsNiVbt6VAlIPftcpvf9zFkYYy8UzYkFV-BPwU/exec?token=$ApiToken"
 
 $DataFolder = "C:\Onboarding\Data"
 $LogFolder  = "C:\Onboarding\Logs"
-$ScriptFolder = "C:\Onboarding\Scripts"
-$HomeFolderBase = "C:\Onboarding\HomeFolders"
 
 $DataFile = "$DataFolder\employees.json"
 $LogFile  = "$LogFolder\onboarding.log"
-$LockFile = "C:\Onboarding\onboarding.lock"
 
 $Domain = "itsec2026.local"
 
@@ -48,16 +34,20 @@ $CheferOU  = "OU=Chefer,OU=ITSEC2026,DC=itsec2026,DC=local"
 $EkonomiOU = "OU=Ekonomi,OU=ITSEC2026,DC=itsec2026,DC=local"
 $SaljOU    = "OU=Sälj,OU=ITSEC2026,DC=itsec2026,DC=local"
 
-# AD-grupper
+# Grupper
 $CheferGroup  = "GG_Chefer"
 $EkonomiGroup = "GG_Ekonomi_Users"
 $SaljGroup    = "GG_Salj_Users"
+
+# Standardlösenord
+$Password = ConvertTo-SecureString "Itsec2026!!" -AsPlainText -Force
 
 # Standardchef
 $ManagerFirstName = "Anna"
 $ManagerLastName  = "Andersson"
 $ManagerUsername  = "anna.andersson"
 $ManagerUPN       = "$ManagerUsername@$Domain"
+
 
 # ==============================
 # Skapa mappar om de saknas
@@ -72,6 +62,7 @@ if (-not (Test-Path $LogFolder)) {
 }
 
 "[$(Get-Date)] Startar onboarding-script" | Out-File $LogFile -Append -Encoding UTF8
+
 
 # ==============================
 # Säkerställ att grupper finns
@@ -157,6 +148,7 @@ catch {
     exit
 }
 
+
 # ==============================
 # Hämta data från API och spara som JSON
 # ==============================
@@ -189,6 +181,7 @@ catch {
     Write-Host "Kunde inte läsa employees.json" -ForegroundColor Red
     exit
 }
+
 
 # ==============================
 # Räknare för summering
@@ -347,6 +340,7 @@ foreach ($Employee in $Employees) {
         $UsersWithErrors++
     }
 }
+
 
 # ==============================
 # Klart
