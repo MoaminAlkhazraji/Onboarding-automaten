@@ -85,7 +85,7 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 ## 2026-06-12
 
 ### Närvarande
-- En gruppmedlem var frånvarande.
+- En gruppmedlem var frånvarande på grund av ett missförstånd kring mötestiden.
 
 ### Sammanfattning
 - Genomförde sprint 3 planering.
