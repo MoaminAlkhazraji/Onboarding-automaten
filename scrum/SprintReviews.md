@@ -56,15 +56,18 @@ Vi genomförde det vi planerade för sprinten och projektet har fortsatt framåt
 ## Sprint 3
 
 ### Sprintfokus
-effiktivisera och se så kod kan jobba tillsammans. 
+Sprintfokus var att effektivisera skriptet och se till att kodens olika delar fungerar bra tillsammans.
 
 ### Vad vi gjorde
-finka ändra i koden då samma sak hade skrivits på olika sätt. 
-uppdaterat scriptet så olika delar synkar och sammarbeter bättre. 
-bättre strukturerade kommentarer och mer lättläst. 
-
+- Gick igenom och förbättrade befintlig kod.
+- Ändrade delar där samma funktion hade skrivits på olika sätt.
+- Uppdaterade skriptet så att olika delar fungerar bättre tillsammans.
+- Förbättrade kommentarer och gjorde koden mer lättläst.
+- Slutförde dokumentationen för ADKAR.
+- Satt oss in mer i hur ITIL kan användas i projektet.
 
 ### Resultat
+Skriptet har blivit mer strukturerat och fungerar bättre som en helhet. Samtidigt har koden blivit enklare att läsa och arbeta vidare med.
 
 ---
 
