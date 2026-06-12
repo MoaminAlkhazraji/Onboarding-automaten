@@ -1,5 +1,6 @@
 # Förändringsledning (ADKAR)
 
+
 ## Awareness
 Efter att en enkät genomförts har det framkommit att många medarbetare inte trivs i arbetsmiljön. För att skapa medvetenhet behöver ledningen kommunicera resultaten och förklara vilka problem som finns. Genom dialogmöten och frågestunder kan medarbetarna få möjlighet att uttrycka sina tankar och funderingar kring situationen. Ett område som identifierats är att HR lägger mycket tid på manuella administrativa uppgifter, vilket kan skapa stress och ineffektiva arbetsprocesser. Därför undersöker organisationen möjligheten att införa en onboarding-automat som kan förenkla delar av arbetet.
 
@@ -14,4 +15,3 @@ Kunskap är inte tillräckligt om medarbetarna inte kan omsätta den i praktiken
 
 ## Reinforcement
 Erfarenheter från användningen av onboarding-automaten samlas in och används för att förbättra systemet ytterligare. För att säkerställa att förändringarna blir långsiktiga krävs kontinuerlig uppföljning och stöd. Organisationen bör regelbundet mäta hur arbetsmiljön utvecklas genom exempelvis nya enkäter och medarbetarsamtal. Positiva resultat och framsteg bör uppmärksammas för att stärka motivationen och visa att förändringsarbetet ger effekt. Samtidigt behöver ledningen vara medveten om att förändring tar tid och att vissa medarbetare kan behöva extra stöd längs vägen. Genom att fortsätta erbjuda vägledning, följa upp resultat och integrera de nya arbetssätten i organisationens kultur kan förbättringarna bli bestående och bidra till en mer trivsam arbetsmiljö.
-
