@@ -56,8 +56,13 @@ Vi genomförde det vi planerade för sprinten och projektet har fortsatt framåt
 ## Sprint 3
 
 ### Sprintfokus
+effiktivisera och se så kod kan jobba tillsammans. 
 
 ### Vad vi gjorde
+finka ändra i koden då samma sak hade skrivits på olika sätt. 
+uppdaterat scriptet så olika delar synkar och sammarbeter bättre. 
+bättre strukturerade kommentarer och mer lättläst. 
+
 
 ### Resultat
 
