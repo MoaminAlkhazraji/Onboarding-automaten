@@ -265,38 +265,29 @@ if (-not (Test-Path $LogFolder)) {
             }
 
 
-    # ==============================
-    # Skapa ny AD-användare
-    # ==============================
+            # ==============================
+            # Skapa AD-användare
+            # ==============================
 
-    try {
-        New-ADUser `
-            -Name "$FirstName $LastName" `
-            -GivenName $FirstName `
-            -Surname $LastName `
-            -SamAccountName $Username `
-            -UserPrincipalName "$Username@$Domain" `
-            -DisplayName "$FirstName $LastName" `
-            -Department $Department `
-            -Title $Role `
-            -Manager $ManagerDN `
-            -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
-            -Path $TargetOU `
-            -AccountPassword $Password `
-            -Enabled $true `
-            -ChangePasswordAtLogon $true
+            New-ADUser `
+                -Name "$FirstName $LastName" `
+                -GivenName $FirstName `
+                -Surname $LastName `
+                -SamAccountName $Username `
+                -UserPrincipalName "$Username@$Domain" `
+                -DisplayName "$FirstName $LastName" `
+                -Department $Department `
+                -Title $Role `
+                -Manager $ManagerDN `
+                -Description "Skapad av Onboarding-Automaten | RowID: $RowId | Startdatum: $StartDate" `
+                -Path $TargetOU `
+                -AccountPassword $Password `
+                -Enabled $true `
+                -ChangePasswordAtLogon $true
 
-        "[$(Get-Date)] Skapade AD-användare: $Username i $TargetOU" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Ny användare skapad: $Username" -ForegroundColor Green
+            Write-Log "Skapade AD-användare: $Username i $TargetOU" "SUCCESS"
 
-        $NewUsersCreated++
-    }
-    catch {
-        "[$(Get-Date)] FEL vid skapande av $Username : $($_.Exception.Message)" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Fel vid skapande av: $Username" -ForegroundColor Red
-        $UsersWithErrors++
-        continue
-    }
+            $Script:NewUsersCreated++
 
 
     # ==============================
