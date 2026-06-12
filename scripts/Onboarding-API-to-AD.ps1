@@ -210,22 +210,19 @@ if (-not (Test-Path $LogFolder)) {
         $StepResult = Invoke-OnboardingStep "Onboarding av $Username" {
 
 
-    # ==============================
-    # Validering: obligatoriska fält
-    # ==============================
+      # ==============================
+            # Validering: obligatoriska fält
+            # ==============================
 
-    if ([string]::IsNullOrWhiteSpace($FirstName) -or
-        [string]::IsNullOrWhiteSpace($LastName) -or
-        [string]::IsNullOrWhiteSpace($Username) -or
-        [string]::IsNullOrWhiteSpace($Department) -or
-        [string]::IsNullOrWhiteSpace($Role) -or
-        [string]::IsNullOrWhiteSpace($Manager)) {
+            if ([string]::IsNullOrWhiteSpace($FirstName) -or
+                [string]::IsNullOrWhiteSpace($LastName) -or
+                [string]::IsNullOrWhiteSpace($Username) -or
+                [string]::IsNullOrWhiteSpace($Department) -or
+                [string]::IsNullOrWhiteSpace($Role) -or
+                [string]::IsNullOrWhiteSpace($Manager)) {
 
-        "[$(Get-Date)] FEL: Saknar obligatorisk data för RowID $RowId" | Out-File $LogFile -Append -Encoding UTF8
-        Write-Host "Hoppar över RowID $RowId - saknar obligatorisk data" -ForegroundColor Red
-        $UsersWithErrors++
-        continue
-    }
+                throw "Saknar obligatorisk data för RowID $RowId"
+            }
 
 
     # ==============================
