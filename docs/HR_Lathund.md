@@ -2,34 +2,27 @@
 
 ## Syfte
 
-Den här lathunden beskriver hur du registrerar en ny medarbetare i onboarding-systemet.
+Den här lathunden beskriver hur du registrerar en ny medarbetare i Onboarding-Automaten.
 
 ---
 
-## 1. Fyll i formuläret
+## Registrera en ny medarbetare
 
-Fyll i den nya medarbetarens uppgifter.
-
-Kontrollera att följande är korrekt:
-
-- Förnamn
-- Efternamn
-- Avdelning
-- Roll
-- Chef
-- Startdatum
-
----
-
-## 2. Skicka in formuläret
-
-När formuläret skickas in startar onboarding-processen automatiskt.
+1. Fyll i formuläret med den nya medarbetarens uppgifter.
+2. Kontrollera att följande information är korrekt:
+    - Förnamn
+    - Efternamn
+    - Avdelning
+    - Roll
+    - Chef
+    - Startdatum
+3. Skicka in formuläret.
 
 ---
 
-## 3. Vad händer sedan?
+## Vad händer sedan?
 
-Systemet skapar automatiskt:
+När formuläret har skickats in startar onboarding-processen automatiskt. Därefter skapas följande:
 
 - Ett användarkonto.
 - Rätt behörigheter utifrån avdelning.
@@ -38,7 +31,7 @@ Systemet skapar automatiskt:
 
 ---
 
-## 4. Om något blir fel
+## Om något blir fel
 
 Kontrollera att uppgifterna i formuläret är korrekt ifyllda.
 
