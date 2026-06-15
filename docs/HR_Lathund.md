@@ -35,4 +35,4 @@ När formuläret har skickats in startar onboarding-processen automatiskt. Däre
 
 Kontrollera att uppgifterna i formuläret är korrekt ifyllda.
 
-Om problemet kvarstår kontaktas Service Desk.
+Om problemet kvarstår, kontakta Service Desk.
