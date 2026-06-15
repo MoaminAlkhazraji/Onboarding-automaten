@@ -341,6 +341,88 @@ foreach ($Employee in $Employees) {
     }
 }
 
+# ==============================
+# User Story #19 - Mappbehörigheter
+# Sätter NTFS-behörigheter på en hemkatalog
+# ==============================
+function Set-OnboardingFolderPermission {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$FolderPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$GroupName,
+
+        [Parameter(Mandatory = $false)]
+        [string]$DomainName = $Domain   # Använder $Domain från huvudscriptet om möjligt
+    )
+
+    try {
+        if (-not (Test-Path $FolderPath)) {
+            Write-Log "Mappen finns inte: $FolderPath" "WARNING"
+            return $false
+        }
+
+        $Acl = Get-Acl -Path $FolderPath
+
+        # Stäng av ärvda behörigheter och ta bort befintliga
+        $Acl.SetAccessRuleProtection($true, $false)
+        foreach ($AccessRule in @($Acl.Access)) {
+            $Acl.RemoveAccessRuleAll($AccessRule)
+        }
+
+        # Administratörer - FullControl
+        $AdminRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            "BUILTIN\Administrators",
+            "FullControl",
+            "ContainerInherit,ObjectInherit",
+            "None",
+            "Allow"
+        )
+
+        # SYSTEM - FullControl
+        $SystemRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            "NT AUTHORITY\SYSTEM",
+            "FullControl",
+            "ContainerInherit,ObjectInherit",
+            "None",
+            "Allow"
+        )
+
+        # AD-grupp - Modify (vanligast för hemkataloger)
+        $GroupRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            "$DomainName\$GroupName",
+            "Modify",
+            "ContainerInherit,ObjectInherit",
+            "None",
+            "Allow"
+        )
+
+        $Acl.AddAccessRule($AdminRule)
+        $Acl.AddAccessRule($SystemRule)
+        $Acl.AddAccessRule($GroupRule)
+
+        Set-Acl -Path $FolderPath -AclObject $Acl
+
+        Write-Log "Behörigheter satta på $FolderPath för gruppen $DomainName\$GroupName" "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-Log "Fel vid sättning av behörigheter på $FolderPath : $($_.Exception.Message)" "ERROR"
+        return $false
+    }
+}
+
+    # ==============================
+    # User Story #19 - Sätt mappbehörighet
+    # ==============================
+
+    $HomeFolder = "C:\Onboarding\HomeFolders\$Username"
+
+    Set-OnboardingFolderPermission -FolderPath $HomeFolder -GroupName $TargetGroup
+
+
 
 # ==============================
 # Klart
