@@ -45,6 +45,8 @@ GitHub används för att hantera backloggen, dokumentera arbetet och följa proj
 | [Förändringsledning](docs/Förändringsledning.md) | Dokumentation av förändringsarbetet |
 | [Definition of Done](docs/DefinitionofDone.md) | Kriterier för när en uppgift är klar |
 | [Git-instruktioner](docs/GitInstruktioner.md) | GitHub-guide för projektet |
+| [HR Lathund](docs/HR_Lathund.md) | Guide för registrering av nya medarbetare |
+| [Service Desk Guide](docs/ServiceDesk_Guide.md) | Guide för felsökning och hantering av vanliga problem |
 
 ## Projektstatus
 🚧 Projektet är under utveckling.
