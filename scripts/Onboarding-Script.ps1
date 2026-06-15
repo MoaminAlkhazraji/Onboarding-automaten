@@ -43,7 +43,7 @@ function New-UserFolderStructure {
         [string]$Username,
 
         [Parameter(Mandatory = $true)]
-        [string]$BasePath
+        [string]$BasePath,
 
         [Parameter(Mandatory = $true)]
         [string]$Department
