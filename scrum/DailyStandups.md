@@ -99,5 +99,28 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 - Genomföra Sprint Review och Sprint Retrospective senare idag.
 
 ### Hinder
-- Inga hinder identifierande. 
+- Inga hinder identifierande.
 
+ ---
+  
+## 2026-06-15
+
+### Närvarande
+- Samtliga gruppmedlemmar.
+
+### Sammanfattning
+- Påbörjade Sprint 4 med en kort avstämning.
+- Diskuterade ITIL och Knowledge Management.
+- Planerade att ta fram en lathund för HR och en teknisk guide för Service Desk.
+- Bestämde att ha en ny avstämning klockan 11 för att gå igenom koden tillsammans i VM-miljön och planera det fortsatta arbetet.
+
+### Nästa steg
+- Gå igenom koden tillsammans i VM miljön.
+- Planera det fortsatta arbetet för Sprint 4.
+- Påbörja dokumentationen för Knowledge Management.
+- Bedöma om fler spikes eller user stories behöver läggas till i backloggen.
+
+### Hinder
+- Inga hinder identifierande.
+
+ ---
