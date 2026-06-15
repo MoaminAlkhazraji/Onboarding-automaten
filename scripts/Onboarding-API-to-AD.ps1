@@ -336,7 +336,7 @@ switch -Wildcard ($DepartmentKey) {
         # Skapa hemkatalog + undermappar
         # ==============================
 
-        $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase
+        $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase -Department $Department
 
         Set-ADUser -Identity $Username -HomeDirectory $HomePath -HomeDrive "H:" -ErrorAction Stop
 
