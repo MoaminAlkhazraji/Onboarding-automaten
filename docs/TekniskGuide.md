@@ -1,6 +1,6 @@
-#Teknisk guide – Felsökning av Onboarding-automaten
+# Teknisk guide – Felsökning av Onboarding-automaten
 
-##1. Kontrollera loggfilen först
+## 1. Kontrollera loggfilen först
 
 Systemet loggar alla händelser med nivåerna:
 
@@ -17,7 +17,7 @@ Vid fel
 
 Åtgärd: Läs senaste ERROR-raden för att identifiera problemet
 
-##2. Problem: Loggfilen skapas inte
+## 2. Problem: Loggfilen skapas inte
 
 Symptom:
 Kunde inte skriva till loggfil!
@@ -30,7 +30,7 @@ Disken är full
 Lösning:
 Kontrollera att $LogFile pekar på en giltig plats och att skriptet har rättigheter att skriva där
 
-##3. Problem: Hemkatalog skapas inte
+## 3. Problem: Hemkatalog skapas inte
 Symptom:
 Fel vid skapande av mappar för användare
 Möjliga orsaker
@@ -44,7 +44,7 @@ Test-Path $BasePath
 
 Om resultatet är "False" måste sökvägen skapas eller korrigeras
 
-##4. Problem: Användarmappen finns redan
+## 4. Problem: Användarmappen finns redan
 
 Symptom:
 Hemkatalog finns redan
@@ -58,7 +58,7 @@ Det är samma användare
 Processen körts flera gånger
 Detta är en varning (WARNING), inte ett kritiskt fel
 
-##5. Problem: Ett onboardingsteg misslyckas
+## 5. Problem: Ett onboardingsteg misslyckas
 Symptom:
 FEL i steg 'Stegnamn'
 Orsak:
@@ -72,7 +72,7 @@ Variabler som används i steget
 Behörigheter mot filsystem eller AD
 Eftersom Try/Catch används fortsätter övriga steg utan att hela skriptet kraschar
 
-##6. Problem: JSON- eller CSV-fil kan inte läsas
+## 6. Problem: JSON- eller CSV-fil kan inte läsas
 
 Symptom:
 Importen startar inte eller användare skapas inte
@@ -97,7 +97,7 @@ Användarnamn
 Avdelning
 Roll
 
-##7. Problem: Behörigheter kan inte sättas
+## 7. Problem: Behörigheter kan inte sättas
 
 Symptom:
 Användaren får konto men saknar åtkomst till mappar eller resurser
@@ -113,7 +113,7 @@ Gruppens namn.
 Att gruppen finns i AD
 Att tjänstekontot har nödvändiga rättigheter
 
-##8. Problem: Skriptet kan inte köras
+## 8. Problem: Skriptet kan inte köras
 Symptom:
 Running scripts is disabled on this system
 Orsak:
@@ -122,7 +122,7 @@ Lösning:
 Kör PowerShell som administratör:
 Set-ExecutionPolicy RemoteSigned
 
-##9. Checklista före drift
+## 9. Checklista före drift
 
 ✔ JSON/CSV-fil validerad
 ✔ Loggfil fungerar
