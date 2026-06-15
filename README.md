@@ -39,7 +39,7 @@ GitHub används för att hantera backloggen, dokumentera arbetet och följa proj
 |-----------|-----------|
 | [Roadmap](docs/roadmap.md) | Övergripande plan för projektet och sprintarna |
 | [Product Vision](docs/ProductVision.md) | Projektets vision och mål |
-| [Scripts](Scripts/) | Samlar alla skript som används i Onboarding-Automaten |
+| [scripts](scripts/) | Samlar alla skript som används i Onboarding-Automaten |
 | [Daily Standup](scrum/DailyStandups.md) | Anteckningar från dagliga möten |
 | [Sprint Reviews](scrum/SprintReviews.md) | Sammanfattningar av genomförda sprintar |
 | [Sprint Retrospectives](scrum/SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
