@@ -1,4 +1,4 @@
-# ==============================
+﻿# ==============================
 # Onboarding-Automaten
 # Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager
 # API-token hämtas från miljövariabel

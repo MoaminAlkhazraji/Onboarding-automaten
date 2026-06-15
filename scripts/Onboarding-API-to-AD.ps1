@@ -1,4 +1,4 @@
-
+﻿
     # ==============================
     # ==============================
     # Hämta in Onboarding-Script.ps1
@@ -245,9 +245,6 @@ foreach ($Employee in $Employees) {
         }
     }
 
-    try {
-        Write-Log "Startar onboarding av $Username" "INFO"
-
         # ==============================
         # Validering: obligatoriska fält
         # ==============================
@@ -297,10 +294,12 @@ switch -Wildcard ($DepartmentKey) {
 
         if ($ExistingUser) {
             $ExistingUsersSkipped++
-            Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
             continue
         }
-
+    
+        try {
+        Write-Log "Startar onboarding av $Username" "INFO"
+        
         # ==============================
         # Skapa AD-användare
         # ==============================
@@ -352,22 +351,23 @@ switch -Wildcard ($DepartmentKey) {
         continue
     }
 }
-        
 
         # ==============================
         # Summering
         # ==============================
 
-        Write-Log "=== Onboarding-Automaten är klar ===" "INFO"
-        Write-Log "Nya användare skapade: $NewUsersCreated" "SUCCESS"
-        Write-Log "Befintliga användare hoppades över: $ExistingUsersSkipped" "WARNING"
-        Write-Log "Hemkataloger skapade/kontrollerade: $FoldersCreatedOrChecked" "INFO"
+        if ($NewUsersCreated -gt 0 -or $UsersWithErrors -gt 0) {
+            Write-Log "=== Onboarding-Automaten är klar ===" "INFO"
+            Write-Log "Nya användare skapade: $NewUsersCreated" "SUCCESS"
+            Write-Log "Befintliga användare hoppades över: $ExistingUsersSkipped" "WARNING"
+            Write-Log "Hemkataloger skapade/kontrollerade: $FoldersCreatedOrChecked" "INFO"
 
-        if ($UsersWithErrors -eq 0) {
-            Write-Log "Fel: $UsersWithErrors" "SUCCESS"
-        }
-        else {
-            Write-Log "Fel: $UsersWithErrors" "ERROR"
+            if ($UsersWithErrors -eq 0) {
+                Write-Log "Fel: $UsersWithErrors" "SUCCESS"
+            }
+            else {
+                Write-Log "Fel: $UsersWithErrors" "ERROR"
+            }
         }
     }
     finally {
