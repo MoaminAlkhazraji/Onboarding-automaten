@@ -44,11 +44,21 @@ function New-UserFolderStructure {
 
         [Parameter(Mandatory = $true)]
         [string]$BasePath
+
+        [Parameter(Mandatory = $true)]
+        [string]$Department
     )
     
+    $DepartmentFolder = Join-Path $BasePath $Department
     $UserHome = Join-Path $BasePath $Username
 
     try {
+        # Skapa avdelningsmapp om den inte finns
+        if (-not (Test-Path $DepartmentFolder)) {
+            New-Item -ItemType Directory -Path $DepartmentFolder -Force | Out-Null
+            Write-Log "Skapade avdelningsmapp: $DepartmentFolder" "SUCCESS"
+        }
+    
         # Skapa hemkatalog om den inte finns
         if (-not (Test-Path $UserHome)) {
             New-Item -ItemType Directory -Path $UserHome -Force | Out-Null
