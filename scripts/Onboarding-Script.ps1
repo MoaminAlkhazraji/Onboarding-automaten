@@ -50,7 +50,7 @@ function New-UserFolderStructure {
     )
     
     $DepartmentFolder = Join-Path $BasePath $Department
-    $UserHome = Join-Path $BasePath $Username
+    $UserHome = Join-Path $DepartmentFolder $Username
 
     try {
         # Skapa avdelningsmapp om den inte finns
