@@ -1,4 +1,4 @@
-# Teknisk guide – Felsökning av Onboarding-automaten
+# Teknisk Guide – Felsökning av Onboarding-Automaten
 
 ## 1. Kontrollera loggfilen först
 
