@@ -19,7 +19,7 @@ function Write-Log {
     $LogEntry = "[$Timestamp] [$Level] $Message"
     
     try {
-        Add-Content -Path $LogFile -Value $LogEntry -Encoding UTF8
+        Add-Content -Path $Script:$LogFile -Value $LogEntry -Encoding UTF8
     }
     catch {
         Write-Warning "Kunde inte skriva till loggfil!"
@@ -44,11 +44,19 @@ function New-UserFolderStructure {
 
         [Parameter(Mandatory = $true)]
         [string]$BasePath
+
+        [Parameter(Mandatory = $true)]
+        [string]$Department
     )
     
-    $UserHome = Join-Path $BasePath $Username
+    $DepartmentFolder = Join-Path $BasePath $Department
+    $UserHome = Join-Path $DepartmentFolder $Username
 
     try {
+        # Skapa avdelningsmapp om den inte finns
+        if (-not (Test-Path $DepartmentFolder)) {
+            New-Item -ItemType Directory -Path $DepartmentFolder -Force | Out-Null
+            Write-Log "Skapade avdelningsmapp: $DepartmentFolder" "SUCCESS"
         # Skapa hemkatalog om den inte finns
         if (-not (Test-Path $UserHome)) {
             New-Item -ItemType Directory -Path $UserHome -Force | Out-Null
