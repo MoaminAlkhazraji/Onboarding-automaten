@@ -15,6 +15,7 @@ Projektet undersöker även hur HR kan involveras i övergången till ett nytt a
 - PowerShell
 - JSON
 - Active Directory
+- API-anrop
 - GitHub
 - VM Labbmiljö
 
@@ -31,18 +32,22 @@ Projektet undersöker även hur HR kan involveras i övergången till ett nytt a
 ## Arbetssätt
 Vi arbetar enligt Scrum och planerar arbetet i sprintar. Varje sprint har ett tydligt mål och följs upp genom daily standups, sprint reviews och sprint retrospectives.
 
-GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsledningen dokumenteras löpande med hjälp av ADKAR-modellen.
+GitHub används för att hantera backloggen, dokumentera arbetet och följa projektets utveckling. Förändringsarbetet dokumenteras löpande med hjälp av ADKAR-modellen.
 
 ## Dokumentation
 | Dokument | Beskrivning |
 |-----------|-----------|
+| [Roadmap](docs/roadmap.md) | Övergripande plan för projektet och sprintarna |
 | [Product Vision](docs/ProductVision.md) | Projektets vision och mål |
-| [Daily Standup](scrum/DailyStandup.md) | Anteckningar från dagliga möten |
+| [Scripts](scripts/) | Samlar alla skript som används i Onboarding-Automaten |
+| [Daily Standup](scrum/DailyStandups.md) | Anteckningar från dagliga möten |
 | [Sprint Reviews](scrum/SprintReviews.md) | Sammanfattningar av genomförda sprintar |
 | [Sprint Retrospectives](scrum/SprintRetrospectives.md) | Reflektioner och förbättringsförslag |
 | [Förändringsledning](docs/Förändringsledning.md) | Dokumentation av förändringsarbetet |
 | [Definition of Done](docs/DefinitionofDone.md) | Kriterier för när en uppgift är klar |
 | [Git-instruktioner](docs/GitInstruktioner.md) | GitHub-guide för projektet |
+| [HR Lathund](docs/HR_Lathund.md) | Guide för registrering av nya medarbetare |
+| [Service Desk Guide](docs/ServiceDesk_Guide.md) | Guide för felsökning och hantering av vanliga problem |
 
 ## Projektstatus
 🚧 Projektet är under utveckling.

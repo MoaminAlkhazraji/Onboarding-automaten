@@ -21,37 +21,59 @@ Projektet har nu en tydlig struktur för dokumentation, planering och samarbete.
 
 ## Sprint 1
 
-### Mål
+### Sprintfokus
+Genomföra de planerade user stories för Sprint 1 och arbeta vidare med utvecklingen av onboarding-projektet.
 
 ### Vad vi gjorde
+- Satt upp testmiljö.
+- Arbetat med dokumentation.
+- Tagit fram en roadmap.
+- Utvecklat skript för API-anrop.
+- Påbörjat skapandet av felhantering, logfil och mappstruktur.
 
 ### Resultat
+Sprint 1 genomfördes enligt plan. Arbetet med onboarding-skriptet och projektets dokumentation har påbörjats och en stabil grund har skapats för kommande sprintar.
 
 ---
 
 ## Sprint 2
 
-### Mål
+### Sprintfokus
+Sprintfokus var att fortsätta utveckla skriptet och genomföra de user stories som planerades för Sprint 2.
 
 ### Vad vi gjorde
+- Börjat bygga huvudloopen i skriptet.
+- Arbetat med att skapa användarkonton i Active Directory.
+- Arbetat med att placera användare i rätt AD-grupper.
+- Fortsatte arbetet med ADKAR.
+- Uppdaterat dokumentation löpande. 
 
 ### Resultat
+Vi genomförde det vi planerade för sprinten och projektet har fortsatt framåt. Flera delar av skriptet har utvecklats vidare och dokumentationen har uppdaterats vid behov.
 
 ---
 
 ## Sprint 3
 
-### Mål
+### Sprintfokus
+Sprintfokus var att effektivisera skriptet och se till att kodens olika delar fungerar bra tillsammans.
 
 ### Vad vi gjorde
+- Gick igenom och förbättrade befintlig kod.
+- Ändrade delar där samma funktion hade skrivits på olika sätt.
+- Uppdaterade skriptet så att olika delar fungerar bättre tillsammans.
+- Förbättrade kommentarer och gjorde koden mer lättläst.
+- Slutförde dokumentationen för ADKAR.
+- Satt oss in mer i hur ITIL kan användas i projektet.
 
 ### Resultat
+Skriptet har blivit mer strukturerat och fungerar bättre som en helhet. Samtidigt har koden blivit enklare att läsa och arbeta vidare med.
 
 ---
 
 ## Sprint 4
 
-### Mål
+### Sprintfokus
 
 ### Vad vi gjorde
 

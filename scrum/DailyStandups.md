@@ -49,3 +49,93 @@
 
 ### Hinder
 - Inga hinder identifierade.
+
+  ---
+
+## 2026-06-10
+
+Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skolan.
+
+  ---
+
+## 2026-06-11
+
+### Närvarande
+- Samtliga gruppmedlemmar.
+
+### Sammanfattning
+- Genomförde sprint 2 planering.
+- Gick igenom backloggen och tilldelade user stories för sprint 2.
+- Flyttade aktuella user stories till **In Progress**.
+- Gick igenom delar av skriptet som redan har utvecklats.
+- Diskuterade hur skriptets olika delar ska fungera tillsammans.
+- Började sätta oss in i hur ITIL kan användas i projektet. 
+
+### Nästa steg
+- Påbörja arbetet med de user stories som ligger i **In Progress**.
+- Fortsätta utveckla och testa funktionerna.
+- Fortsätta dokumentera arbetet.
+- Genomföra avstämning, Sprint Review och Sprint Retrospective.
+
+### Hinder
+- Inga hinder identifierade.
+
+  ---
+  
+## 2026-06-12
+
+### Närvarande
+- En gruppmedlem var frånvarande på grund av ett missförstånd kring mötestiden.
+
+### Sammanfattning
+- Genomförde sprint 3 planering.
+- Gick igenom backloggen och fördelade user stories för sprint 3.
+- Flyttade aktuella user stories till **In Progress**.
+
+### Nästa steg
+- Påbörja arbetet med de user stories som ligger i **In Progress**.
+- Utvecklarna går igenom koden tillsammans och ser hur delarna fungerar ihop.
+- Hålla en ny avstämning kl. 11.00 för att se om fler user stories behöver läggas till i backloggen.
+- Genomföra Sprint Review och Sprint Retrospective senare idag.
+
+### Hinder
+- Inga hinder identifierande.
+
+ ---
+  
+## 2026-06-15
+
+### Närvarande
+- Samtliga gruppmedlemmar.
+
+### Sammanfattning
+- Påbörjade Sprint 4 med en kort avstämning.
+- Diskuterade ITIL och Knowledge Management.
+- Planerade att ta fram en lathund för HR och en teknisk guide för Service Desk.
+- Bestämde att ha en ny avstämning klockan 11 för att gå igenom koden tillsammans i VM-miljön och planera det fortsatta arbetet.
+
+### Nästa steg
+- Gå igenom koden tillsammans i VM miljön.
+- Planera det fortsatta arbetet för Sprint 4.
+- Påbörja dokumentationen för Knowledge Management.
+- Bedöma om fler spikes eller user stories behöver läggas till i backloggen.
+
+### Hinder
+- Inga hinder identifierande.
+
+ ---
+
+ ## 2026-06-16
+
+### Närvarande
+- En gruppmedlem var frånvarande
+
+### Sammanfattning
+- Gick igenom projektet tillsammans inför redovisningen imorgon.
+
+### Nästa steg
+- Sprint Review och Sprint Retrospective kl. 14.
+- Säkerställa att de sista delarna är klara inför sprintavslut.
+
+### Hinder
+- Inga hinder identifierande.
