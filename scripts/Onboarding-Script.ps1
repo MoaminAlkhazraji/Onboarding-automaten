@@ -82,6 +82,7 @@ function New-UserFolderStructure {
         Write-Log "Fel vid skapande av mappar för $Username : $($_.Exception.Message)" "ERROR"
         throw
     }
+}
 
 }
 
