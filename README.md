@@ -50,4 +50,4 @@ GitHub används för att hantera backloggen, dokumentera arbetet och följa proj
 | [Service Desk Guide](docs/ServiceDesk_Guide.md) | Guide för felsökning och hantering av vanliga problem |
 
 ## Projektstatus
-🚧 Projektet är under utveckling.
+✅ Projektet är färdigställt.
