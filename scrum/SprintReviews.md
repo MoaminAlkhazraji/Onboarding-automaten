@@ -74,7 +74,14 @@ Skriptet har blivit mer strukturerat och fungerar bättre som en helhet. Samtidi
 ## Sprint 4
 
 ### Sprintfokus
+Sprintfokus var att få ihop alla delar av projektet och säkerställa att lösningen fungerar som en helhet inför redovisningen.
 
 ### Vad vi gjorde
+- Finslipade och förbättrade skriptet.
+- La till kommentarer för att göra koden tydligare och mer lättläst. 
+- Uppdaterade dokumentationen och GitHub. 
+- Implementerade ITIL dokumentation i form av Knowledge Management. 
+- Genomförde de sista testerna och mindre justeringarna.
 
 ### Resultat
+Vi uppnådde sprintens mål och färdigställde projektet inför redovisningen. Även om det fortfarande finns detaljer som hade kunnat utvecklas vidare känner vi att lösningen skapar ett värde för HR-avdelningen genom att automatisera onboarding-automaten.
