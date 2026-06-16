@@ -68,7 +68,14 @@
 ## Sprint 4
 
 ### Vad gick bra?
+Struktur, scriptet. 
+Kommunikation. 
+vi fick det att funka. 
 
 ### Vad gick mindre bra?
-
+Man vet ju inte hur man ska börja.. svårt att samarbeta med koden. 
+vi hade en enorm merge konflikt som behövdes rädda upp. 
 ### Vad kan vi förbättra?
+Mer tid för att fixa mer på detaljer. En förbättring, loggen så man kan filtrera på ett smidigt sätt. 
+Kan bli bättre att sammarbeta med skriptet. De bästa är om man hade en extern server till vm miljön så man kan testa på samma.... 
+Vi saknar kompetens i kodning och scriptning. 
