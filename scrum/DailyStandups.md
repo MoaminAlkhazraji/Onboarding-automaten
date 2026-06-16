@@ -124,3 +124,18 @@ Ingen daily standup genomfördes idag eftersom gruppen hade föreläsning i skol
 - Inga hinder identifierande.
 
  ---
+
+ ## 2026-06-16
+
+### Närvarande
+- En gruppmedlem var frånvarande
+
+### Sammanfattning
+- Gick igenom projektet tillsammans inför redovisningen imorgon.
+
+### Nästa steg
+- Sprint Review och Sprint Retrospective kl. 14.
+- Säkerställa att de sista delarna är klara inför sprintavslut.
+
+### Hinder
+- Inga hinder identifierande.
