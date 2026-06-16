@@ -213,8 +213,6 @@ try {
         }
 
         try {
-            Write-Log "Startar onboarding av $Username" "INFO"
-
             # Kontrollera att alla obligatoriska uppgifter finns ifyllda
             if ([string]::IsNullOrWhiteSpace($FirstName) -or
                 [string]::IsNullOrWhiteSpace($LastName) -or
@@ -254,6 +252,8 @@ try {
                 Write-Log "Befintlig användare hoppades över: $Username" "WARNING"
                 continue
             }
+
+             Write-Log "Startar onboarding av $Username" "INFO"
 
             # Skapa det nya användarkontot i Active Directory
             New-ADUser `
