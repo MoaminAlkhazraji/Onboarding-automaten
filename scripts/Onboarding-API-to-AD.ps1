@@ -120,9 +120,7 @@ try {
 
                 Write-Log "Skapade gruppen $($Group.Name)" "SUCCESS"
             }
-            else {
-                Write-Log "Gruppen finns redan: $($Group.Name)" "INFO"
-            }
+            
         }
     }
 
@@ -152,9 +150,6 @@ try {
 
             Write-Log "Skapade chefskonto: $ManagerUsername" "SUCCESS"
         }
-        else {
-            Write-Log "Chefskontot finns redan: $ManagerUsername" "INFO"
-        }
 
         $Script:ManagerDN = (Get-ADUser -Filter "SamAccountName -eq '$ManagerUsername'").DistinguishedName
 
@@ -164,9 +159,6 @@ try {
         if (-not $ManagerIsMember) {
             Add-ADGroupMember -Identity $CheferGroup -Members $ManagerUsername
             Write-Log "Lade till $ManagerUsername i gruppen $CheferGroup" "SUCCESS"
-        }
-        else {
-            Write-Log "$ManagerUsername är redan medlem i $CheferGroup" "INFO"
         }
     }
 
