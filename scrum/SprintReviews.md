@@ -74,7 +74,13 @@ Skriptet har blivit mer strukturerat och fungerar bättre som en helhet. Samtidi
 ## Sprint 4
 
 ### Sprintfokus
+Få allt att fungera tillsammans... 
 
 ### Vad vi gjorde
+finslipa koden
+lägga in kommentareer. 
+uppdatera giten
+ITIL dokometation
 
 ### Resultat
+saknas en del detaljer men känner oss begränsade av att scripta då vi inte har gjort de så länge. Vi hade kunnat göra de bättre om vi haft mer tid. 
