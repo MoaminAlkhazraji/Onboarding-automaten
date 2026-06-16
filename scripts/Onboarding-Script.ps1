@@ -14,12 +14,12 @@ function Write-Log {
         [ValidateSet("INFO", "SUCCESS", "WARNING", "ERROR")]
         [string]$Level = "INFO"
     )
-
+    
     $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $LogEntry = "[$Timestamp] [$Level] $Message"
-
+    
     try {
-        Add-Content -Path $Script:LogFile -Value $LogEntry -Encoding UTF8
+        Add-Content -Path $LogFile -Value $LogEntry -Encoding UTF8
     }
     catch {
         Write-Warning "Kunde inte skriva till loggfil!"
@@ -43,22 +43,12 @@ function New-UserFolderStructure {
         [string]$Username,
 
         [Parameter(Mandatory = $true)]
-        [string]$BasePath,
-
-        [Parameter(Mandatory = $true)]
-        [string]$Department
+        [string]$BasePath
     )
-
-    $DepartmentFolder = Join-Path $BasePath $Department
-    $UserHome = Join-Path $DepartmentFolder $Username
+    
+    $UserHome = Join-Path $BasePath $Username
 
     try {
-        # Skapa avdelningsmapp om den inte finns
-        if (-not (Test-Path $DepartmentFolder)) {
-            New-Item -ItemType Directory -Path $DepartmentFolder -Force | Out-Null
-            Write-Log "Skapade avdelningsmapp: $DepartmentFolder" "SUCCESS"
-        }
-    
         # Skapa hemkatalog om den inte finns
         if (-not (Test-Path $UserHome)) {
             New-Item -ItemType Directory -Path $UserHome -Force | Out-Null
@@ -75,7 +65,7 @@ function New-UserFolderStructure {
             "Nedladdningar",
             "Projekt",
             "Mallar"
-        )
+            )
 
         foreach ($Folder in $SubFolders) {
             $FullPath = Join-Path $UserHome $Folder
@@ -92,6 +82,8 @@ function New-UserFolderStructure {
         Write-Log "Fel vid skapande av mappar för $Username : $($_.Exception.Message)" "ERROR"
         throw
     }
+}
+
 }
 
 # HJÄLPFUNKTION: Invoke-Onboardingstep #6
@@ -119,4 +111,5 @@ function Invoke-OnboardingStep {
         Write-Log "FEL i steg '$StepName': $($_.Exception.Message)" "ERROR"
         return $false
     }
+
 }
