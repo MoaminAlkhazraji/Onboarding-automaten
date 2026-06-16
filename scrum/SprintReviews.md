@@ -84,3 +84,4 @@ ITIL dokometation
 
 ### Resultat
 saknas en del detaljer men känner oss begränsade av att scripta då vi inte har gjort de så länge. Vi hade kunnat göra de bättre om vi haft mer tid. 
+vi har uppnåt målet och skapat ett värde för HR avdelningen. 
