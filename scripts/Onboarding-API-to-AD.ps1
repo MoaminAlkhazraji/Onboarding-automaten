@@ -6,11 +6,10 @@
 # Hämta in hjälpfunktioner från Oboarding-Script.ps1
 . "$PSScriptRoot\Onboarding-Script.ps1"
 
-# Börja använda Active Directory kommandon
+# Börjar använda Active Directory kommandon
 # Formulär/API -> JSON -> AD -> OU -> Grupp -> Manager -> Hemkatalog
 # API-token och standardlösenord hämtas från miljövariabler av säkerhetsskäl
 Import-Module ActiveDirectory
-
 
 # Hämta hemlig API-nyckel från datorns inställningar (säkert sätt)
 # Om nyckeln saknas så skriver vi ut ett felmeddelande och avslutar
