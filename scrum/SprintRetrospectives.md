@@ -68,14 +68,17 @@
 ## Sprint 4
 
 ### Vad gick bra?
-Struktur, scriptet. 
-Kommunikation. 
-vi fick det att funka. 
+- Vi fick ihop projektets olika delar och skriptet fungerar som tänkt.
+- Fortsatt bra kommunikation och samarbete inom gruppen.
+- Vi lyckades lösa problem som uppstod under sprinten och nå vårt mål.
 
 ### Vad gick mindre bra?
-Man vet ju inte hur man ska börja.. svårt att samarbeta med koden. 
-vi hade en enorm merge konflikt som behövdes rädda upp. 
+- Det var stundtals svårt att samarbeta i samma kod och veta var man skulle börja.
+- Vi stötte på en större merge-konflikt som tog lite tid att lösa.
+- Begränsad erfarenhet av scriptning gjorde vissa delar mer utmanande.
+
 ### Vad kan vi förbättra?
-Mer tid för att fixa mer på detaljer. En förbättring, loggen så man kan filtrera på ett smidigt sätt. 
-Kan bli bättre att sammarbeta med skriptet. De bästa är om man hade en extern server till vm miljön så man kan testa på samma.... 
-Vi saknar kompetens i kodning och scriptning. 
+- Fortsätta utveckla våra kunskaper inom PowerShell och scriptning.
+- Bli ännu bättre på att samarbeta i Git och planera ändringar i koden.
+- Om möjligt använda en gemensam testmiljö så att alla kan testa samma lösning.
+- Vi hade kunnat förbättra detaljer om de funnits mer tid för projektet. 
