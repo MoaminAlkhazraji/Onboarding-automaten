@@ -8,17 +8,18 @@ function Write-Log {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        [string]$Message,
+        [string]$Message,               # Meddelandet som ska loggas
 
         [Parameter(Mandatory = $false)]
         [ValidateSet("INFO", "SUCCESS", "WARNING", "ERROR")]
-        [string]$Level = "INFO"
+        [string]$Level = "INFO"         # Vilken typ av meddelande (färg + allvarlighetsgrad)
     )
     
     $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $LogEntry = "[$Timestamp] [$Level] $Message"
     
     try {
+        # Skriv till loggfilen (om den är definierad i huvudskriptet)
         Add-Content -Path $Script:$LogFile -Value $LogEntry -Encoding UTF8
     }
     catch {
@@ -40,15 +41,16 @@ function New-UserFolderStructure {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        [string]$Username,
+        [string]$Username,              # Användarnamn, t.ex. "kalle.svensson"
 
         [Parameter(Mandatory = $true)]
-        [string]$BasePath,
+        [string]$BasePath,              # Rotmapp, t.ex. "C:\Onboarding\Hemkatalog"
 
         [Parameter(Mandatory = $true)]
-        [string]$Department
+        [string]$Department             # Avdelning, t.ex. "Ekonomi"
     )
     
+    # Bygg sökvägar
     $DepartmentFolder = Join-Path $BasePath $Department
     $UserHome = Join-Path $DepartmentFolder $Username
 
@@ -86,7 +88,7 @@ function New-UserFolderStructure {
             }
         }
 
-        return $UserHome
+        return $UserHome    # Returnerar sökvägen så den kan kopplas till H:-disken
     }
     catch {
         Write-Log "Fel vid skapande av mappar för $Username : $($_.Exception.Message)" "ERROR"
@@ -95,22 +97,22 @@ function New-UserFolderStructure {
 }
 
 # HJÄLPFUNKTION: Invoke-Onboardingstep #6
-# Kör ett steg med felhantering och loggar resultatet 
-# Gör det enkelt att lägga till nya steg utan att hela scriptet kraschar
+# Används för att köra stora delar av processen på ett säkert och loggat sätt
+# Om ett steg kraschar så fortsätter skriptet ändå
 function Invoke-OnboardingStep {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true)]
-        [string]$StepName,
+        [string]$StepName,              # Namn på steget som visas i loggen
 
         [Parameter(Mandatory=$true)]
-        [scriptblock]$ScriptBlock
+        [scriptblock]$ScriptBlock       # Kodblocket som ska köras
     )
 
     try {
         Write-Log "Startar: $StepName" "INFO"
 
-        & $ScriptBlock
+        & $ScriptBlock                  # Kör koden som skickades med
 
         Write-Log "Slutfört: $StepName" "SUCCESS"
         return $true
