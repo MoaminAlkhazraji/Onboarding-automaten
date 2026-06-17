@@ -43,7 +43,7 @@ function New-UserFolderStructure {
         [string]$Username,
 
         [Parameter(Mandatory = $true)]
-        [string]$BasePath
+        [string]$BasePath,
 
         [Parameter(Mandatory = $true)]
         [string]$Department
@@ -57,6 +57,8 @@ function New-UserFolderStructure {
         if (-not (Test-Path $DepartmentFolder)) {
             New-Item -ItemType Directory -Path $DepartmentFolder -Force | Out-Null
             Write-Log "Skapade avdelningsmapp: $DepartmentFolder" "SUCCESS"
+        }
+
         # Skapa hemkatalog om den inte finns
         if (-not (Test-Path $UserHome)) {
             New-Item -ItemType Directory -Path $UserHome -Force | Out-Null
@@ -65,7 +67,7 @@ function New-UserFolderStructure {
         else {
             Write-Log "Hemkatalog finns redan: $UserHome" "WARNING"
         }
-
+        
         # Skapar undermappar
         $SubFolders = @(
             "Dokument",
@@ -73,7 +75,7 @@ function New-UserFolderStructure {
             "Nedladdningar",
             "Projekt",
             "Mallar"
-            )
+        )
 
         foreach ($Folder in $SubFolders) {
             $FullPath = Join-Path $UserHome $Folder
@@ -90,8 +92,6 @@ function New-UserFolderStructure {
         Write-Log "Fel vid skapande av mappar för $Username : $($_.Exception.Message)" "ERROR"
         throw
     }
-}
-
 }
 
 # HJÄLPFUNKTION: Invoke-Onboardingstep #6
