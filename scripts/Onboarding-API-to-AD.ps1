@@ -40,7 +40,7 @@ $Uri = "https://script.google.com/macros/s/AKfycbwFnx_-ZwAeEszfJ9Z72MDfkRddqQsNi
 $DataFolder = "C:\Onboarding\Data"
 $LogFolder  = "C:\Onboarding\Logs"
 $ScriptFolder = "C:\Onboarding\Scripts"
-$HomeFolderBase = "C:\Onboarding\HomeFolders"
+$HemkatalogBase = "C:\Onboarding\Hemkatalog"
 
 $DataFile = "$DataFolder\employees.json"
 $LogFile  = "$LogFolder\onboarding.log"
@@ -70,7 +70,7 @@ $FoldersToCreate = @(
     $DataFolder,
     $LogFolder,
     $ScriptFolder,
-    $HomeFolderBase
+    $HemkatalogBase
 )
 
 foreach ($Folder in $FoldersToCreate) {
@@ -281,7 +281,7 @@ try {
             Write-Log "Lade till $Username i gruppen $TargetGroup" "SUCCESS"
 
             # Skapa en personlig hemkatalog för användaren och koppla den till H:-disken
-            $HomePath = New-UserFolderStructure -Username $Username -BasePath $HomeFolderBase -Department $Department
+            $HomePath = New-UserFolderStructure -Username $Username -BasePath $HemkatalogBase -Department $Department
             Set-ADUser -Identity $Username -HomeDirectory $HomePath -HomeDrive "H:" -ErrorAction Stop
             Write-Log "Satte hemkatalog för $Username till $HomePath" "SUCCESS"
             $FoldersCreatedOrChecked++
